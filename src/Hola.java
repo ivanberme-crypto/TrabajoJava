@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Hola {
 
-    // --- PALETA DE COLORES ANSI ---
+
     public static final String RESET = "\u001B[0m";
     public static final String NEGRO = "\u001B[30m";
     public static final String ROJO = "\u001B[31m";
