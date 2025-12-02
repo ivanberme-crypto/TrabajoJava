@@ -6,15 +6,14 @@ public class Main {
 
     public static void main(String[] args) {
 
-     //boolean resultadoIntroduccion = Funciones.introduccion();
+        boolean resultadoIntroduccion = Funciones.introduccion();
 
-     // Funciones.imprimirHistoria();
+        Funciones.imprimirHistoria();
 
-      Funciones.Porcentajes(sc);
-//
-//        Funciones.juegoHumanos();
+        boolean resultadoFinal = Funciones.Porcentajes(sc, resultadoIntroduccion);
 
-        //Funciones.memoria();
+        Funciones.imprimirFinal(resultadoFinal);
+
 
     }
 }

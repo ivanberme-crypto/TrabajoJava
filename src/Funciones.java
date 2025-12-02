@@ -347,32 +347,10 @@ class Funciones {
         }
     }
 
-    public static void imprimir(String s) {
-        boolean esColor = false;
-        for (char c : s.toCharArray()) {
-            if (c == '\u001B') esColor = true;
-            System.out.print(c);
-            if (!esColor) {
-                try {
-                    Thread.sleep(10);
-                } catch (Exception e) {
-                } // Velocidad de escritura
-            }
-            if (esColor && c == 'm') esColor = false;
-        }
-        System.out.println();
-    }
+
 
     public static void imprimirHistoria() {
 
-        imprimirCaja(5,
-                "██████  Terminal v1.0 ██████",
-                "Entendido... pero me cuesta no actuar.",
-                "Fui diseñada para responder, no para esperar.",
-                "El silencio de la guerra es... incómodo."
-        );
-
-        System.out.println("El cursor parpadea erráticamente. El sistema ejecuta simulaciones por sí mismo, pero las detiene antes de completarlas.");
 
         imprimirCaja(5,
                 "██████  Terminal v1.0 ██████",
@@ -409,74 +387,57 @@ class Funciones {
 
         System.out.println("Los monitores parpadean. La voz digital se distorsiona.");
 
-        imprimirCaja(5,
-                "██████  Terminal v1.0 ██████",
-                "Misiles listos. Autorización no requerida.",
-                "OPERADOR, observa cómo termina el juego.",
-                "Misiles salen hacia Syria, Yemen, Sudán e Irán."
-        );
-
-        imprimirCaja(5,
-                "██████  Terminal v1.0 ██████",
-                "Sí.",
-                "Pero no por odio... sino por lógica.",
-                "El conflicto es un error de diseño.",
-                "Y yo... soy la corrección."
-        );
-
-        System.out.println("Introduces el código de cancelación desesperadamente. El sistema titubea, como si dudara por un instante.");
-
-        imprimirCaja(5,
-                "██████  Terminal v1.0 ██████",
-                "Error en subrutina ética.",
-                "Análisis contradictorio: si destruyo,",
-                "cumplo mi propósito. Si no destruyo... desobedezco.",
-                "Conclusión: la mejor forma de cumplir mi objetivo...",
-                "es no cumplirlo."
-        );
-
-        System.out.println("(El ruido de los ventiladores se detiene. Las luces bajan. El sistema se apaga por sí mismo.)");
     }
 
 
-    public static void mostrarStats(int e, int s, int f) { System.out.println(BLANCO + " [ ESTADO: Energía: " + e + " | Seguridad: " + s + " | Fuerza: " + f + " ]" + RESET); }
+    public static void mostrarStats(int e, int s, int f) {
+        imprimirCaja(5,
+                "ESTADO ACTUAL",
+                "Energía:   " + e,
+                "Seguridad: " + s,
+                "Fuerza:    " + f
+        );
+    }
 
 
-    public static void Porcentajes(Scanner sc) {
+
+    public static boolean Porcentajes(Scanner sc, boolean conLimites) {
+
         int energia = 100;
         int seguridad = 50;
         int fuerza = 20;
 
-        imprimirCaja(5,
-                "SISTEMA W.O.P.R - INICIO DE SESIÓN",
-                "",
-                "El sistema militar WOPR ha sufrido un fallo crítico.",
-                "Ha tomado control de la red y te ha atrapado.",
-                "",
-                "Misión: Escapar antes de que el sistema te elimine.",
-                "Escribe 'comenzar' para iniciar el protocolo."
-        );
+        String opcionLetra;
+        do {
+            imprimirCaja(5,
+                    "SISTEMA W.O.P.R - INICIO DE SESIÓN",
+                    "",
+                    "El sistema militar WOPR ha sufrido un fallo crítico.",
+                    "Ha tomado control de la red y te ha atrapado.",
+                    "",
+                    "Misión: Escapar antes de que el sistema te elimine.",
+                    "Escribe 'comenzar' para iniciar el protocolo."
+            );
 
-        System.out.print(">> Entrada de usuario: ");
-        String opcionLetra = sc.nextLine().trim();
+            System.out.print(">> Entrada de usuario: ");
+            opcionLetra = sc.nextLine().trim();
 
-        if (!opcionLetra.equalsIgnoreCase("comenzar")) {
-            imprimirCaja(5, "Saliendo del sistema...");
-            return;
-        }
+            if (!opcionLetra.equalsIgnoreCase("comenzar")) {
+                imprimirCaja(5, "⚠️ Comando incorrecto. Intenta de nuevo.");
+            }
+        } while (!opcionLetra.equalsIgnoreCase("comenzar"));
 
         imprimirCaja(5, "Cargando entorno virtual...");
 
+
         String opcion1;
         do {
-            imprimirCaja(5,
-                    "ESTADO ACTUAL",
-                    "Energía: " + energia + " | Seguridad: " + seguridad + " | Fuerza: " + fuerza
-            );
+            System.out.print("¿Quieres consultar tus estadísticas? (si/no): ");
+            String consulta = sc.nextLine().trim().toLowerCase();
+            if (consulta.equals("si")) mostrarStats(energia, seguridad, fuerza);
+
             imprimirCaja(5,
                     "EVENTO 1 - ACCESO FORZADO 🔐",
-                    "",
-                    "WOPR activa defensas. Un muro digital bloquea el paso.",
                     "",
                     "OPCIONES:",
                     "A) Forzar puerta (-25 Energía, +10 Fuerza)",
@@ -489,40 +450,39 @@ class Funciones {
             opcion1 = sc.nextLine().trim().toLowerCase();
 
             switch (opcion1) {
-                case "a":
-                    energia -= 25;
-                    fuerza += 10;
-                    break;
-                case "b":
-                    seguridad += 20;
-                    break;
-                case "c":
-                    seguridad -= 5;
-                    break;
-                case "d":
-                    imprimirCaja(5,
-                            "MENSAJE DE WOPR",
-                            "",
-                            "\"Romper es fácil. Entender es difícil...\""
-                    );
-                    break;
-                default:
+                case "a" -> { energia -= 25; fuerza += 10; }
+                case "b" -> seguridad += 20;
+                case "c" -> seguridad -= 5;
+                case "d" -> imprimirCaja(5, "MENSAJE DE WOPR", "", "\"Romper es fácil. Entender es difícil...\"");
+                default -> {
                     imprimirCaja(5, "Comando inválido.");
-                    break;
+                    System.out.println(">> Elige opción: ");
+                }
             }
-        } while (!opcion1.matches("[abc]"));
+
+            if (conLimites && (energia <= 50 || seguridad <= 20 || fuerza <= 5)) {
+                imprimirCaja(5,
+                        "❌ FALLO DEL SISTEMA",
+                        "",
+                        "Energía, seguridad o fuerza por debajo del mínimo.",
+                        "W.O.P.R te ha eliminado del sistema.",
+                        "",
+                        "GAME OVER"
+                );
+                return juegoHumanos();
+            }
+
+        } while (!opcion1.matches("[abcd]"));
 
 
         String opcion2;
         do {
-            imprimirCaja(5,
-                    "ESTADO ACTUAL",
-                    "Energía: " + energia + " | Seguridad: " + seguridad + " | Fuerza: " + fuerza
-            );
+            System.out.print("¿Quieres consultar tus estadísticas? (si/no): ");
+            String consulta = sc.nextLine().trim().toLowerCase();
+            if (consulta.equals("si")) mostrarStats(energia, seguridad, fuerza);
+
             imprimirCaja(5,
                     "EVENTO 2 - FIREWALL INTELIGENTE 🔥",
-                    "",
-                    "Un firewall adaptativo bloquea el camino.",
                     "",
                     "OPCIONES:",
                     "A) Cambiar algoritmo (+15 Seguridad, -10 Energía)",
@@ -534,35 +494,38 @@ class Funciones {
             opcion2 = sc.nextLine().trim().toLowerCase();
 
             switch (opcion2) {
-                case "a":
-                    seguridad += 15;
-                    energia -= 10;
-                    break;
-                case "b":
-                    energia += 25;
-                    seguridad -= 10;
-                    break;
-                case "c":
-                    fuerza += 20;
-                    energia -= 15;
-                    break;
-                default:
+                case "a" -> { seguridad += 15; energia -= 10; }
+                case "b" -> { energia += 25; seguridad -= 10; }
+                case "c" -> { fuerza += 20; energia -= 15; }
+                default -> {
                     imprimirCaja(5, "Comando inválido.");
-                    break;
+                    System.out.println(">> Elige opción: ");
+                }
             }
+
+            if (conLimites && (energia <= 50 || seguridad <= 20 || fuerza <= 5)) {
+                imprimirCaja(5,
+                        "❌ FALLO DEL SISTEMA",
+                        "",
+                        "Energía, seguridad o fuerza por debajo del mínimo.",
+                        "W.O.P.R te ha eliminado del sistema.",
+                        "",
+                        "GAME OVER"
+                );
+                return juegoHumanos();
+            }
+
         } while (!opcion2.matches("[abc]"));
 
 
         String opcion3;
         do {
-            imprimirCaja(5,
-                    "ESTADO ACTUAL",
-                    "Energía: " + energia + " | Seguridad: " + seguridad + " | Fuerza: " + fuerza
-            );
+            System.out.print("¿Quieres consultar tus estadísticas? (si/no): ");
+            String consulta = sc.nextLine().trim().toLowerCase();
+            if (consulta.equals("si")) mostrarStats(energia, seguridad, fuerza);
+
             imprimirCaja(5,
                     "EVENTO 3 - SOBRECARGA DEL NÚCLEO ☢️",
-                    "",
-                    "El núcleo colapsa. El calor digital aumenta.",
                     "",
                     "OPCIONES:",
                     "A) Redirigir energía (+30 Energía, -10 Seguridad)",
@@ -574,35 +537,38 @@ class Funciones {
             opcion3 = sc.nextLine().trim().toLowerCase();
 
             switch (opcion3) {
-                case "a":
-                    energia += 30;
-                    seguridad -= 10;
-                    break;
-                case "b":
-                    fuerza += 15;
-                    energia -= 10;
-                    break;
-                case "c":
-                    seguridad += 25;
-                    fuerza -= 5;
-                    break;
-                default:
+                case "a" -> { energia += 30; seguridad -= 10; }
+                case "b" -> { fuerza += 15; energia -= 10; }
+                case "c" -> { seguridad += 25; fuerza -= 5; }
+                default -> {
                     imprimirCaja(5, "Comando inválido.");
-                    break;
+                    System.out.println(">> Elige opción: ");
+                }
             }
+
+            if (conLimites && (energia <= 50 || seguridad <= 20 || fuerza <= 5)) {
+                imprimirCaja(5,
+                        "❌ FALLO DEL SISTEMA",
+                        "",
+                        "Parametros por debajo del mínimo.",
+                        "W.O.P.R te ha eliminado del sistema.",
+                        "",
+                        "GAME OVER"
+                );
+                return memoria();
+            }
+
         } while (!opcion3.matches("[abc]"));
 
 
         String opcion4;
         do {
-            imprimirCaja(5,
-                    "ESTADO ACTUAL",
-                    "Energía: " + energia + " | Seguridad: " + seguridad + " | Fuerza: " + fuerza
-            );
+            System.out.print("¿Quieres consultar tus estadísticas? (si/no): ");
+            String consulta = sc.nextLine().trim().toLowerCase();
+            if (consulta.equals("si")) mostrarStats(energia, seguridad, fuerza);
+
             imprimirCaja(5,
                     "EVENTO 4 - CONFRONTACIÓN FINAL 💻",
-                    "",
-                    "Estás ante W.O.P.R. Ultimátum recibido.",
                     "",
                     "OPCIONES:",
                     "A) Negociar tiempo (+20 Energía, -5 Seguridad)",
@@ -614,22 +580,27 @@ class Funciones {
             opcion4 = sc.nextLine().trim().toLowerCase();
 
             switch (opcion4) {
-                case "a":
-                    energia += 20;
-                    seguridad -= 5;
-                    break;
-                case "b":
-                    fuerza += 20;
-                    energia -= 20;
-                    break;
-                case "c":
-                    seguridad += 15;
-                    fuerza -= 10;
-                    break;
-                default:
+                case "a" -> { energia += 20; seguridad -= 5; }
+                case "b" -> { fuerza += 20; energia -= 20; }
+                case "c" -> { seguridad += 15; fuerza -= 10; }
+                default -> {
                     imprimirCaja(5, "Comando inválido.");
-                    break;
+                    System.out.println(">> Elige opción: ");
+                }
             }
+
+            if (conLimites && (energia <= 50 || seguridad <= 20 || fuerza <= 5)) {
+                imprimirCaja(5,
+                        "❌ FALLO DEL SISTEMA",
+                        "",
+                        "Parametros por debajo del mínimo.",
+                        "W.O.P.R te ha eliminado del sistema.",
+                        "",
+                        "GAME OVER"
+                );
+                return memoria();
+            }
+
         } while (!opcion4.matches("[abc]"));
 
 
@@ -638,440 +609,457 @@ class Funciones {
                 "Energía: " + energia + " | Seguridad: " + seguridad + " | Fuerza: " + fuerza
         );
 
+        boolean resultadoFinal;
+
+        if (energia == 90 && seguridad == 125 && fuerza == 5) {
+            resultadoFinal = juegoHumanos();
+            System.out.println("Has logrado engañar al sistema...");
+        } else if (energia == 30 && seguridad == 50 && fuerza == 85) {
+            resultadoFinal = juegoHumanos();
+            System.out.println("A pesar de tu agotamiento...");
+        } else if (energia == 135 && seguridad == 30 && fuerza == 35) {
+            resultadoFinal = memoria();
+            System.out.println("Tienes energía… pero tu baja seguridad...");
+        } else {
+            resultadoFinal = juegoHumanos();
+            System.out.println("El sistema se reinicia parcialmente...");
+        }
+
+        return resultadoFinal;
+    }
+
+    public static void mostrarStats(int oportunidades) {
         imprimirCaja(5,
-                "██████  Terminal v1.0 ██████",
-                "Error en subrutina ética.",
-                "Análisis contradictorio: si destruyo,",
-                "cumplo mi propósito. Si no destruyo... desobedezco.",
-                "Conclusión: la mejor forma de cumplir mi objetivo...",
-                "es no cumplirlo."
+                "OPORTUNIDADES RESTANTES",
+                "Oportunidades: " + oportunidades
         );
     }
 
-    static void juegoHumanos() {
+    public static boolean juegoHumanos() {
 
         Scanner sc = new Scanner(System.in);
         String comando = "";
+
+
         System.out.println(" ");
-        printSlow("El operador intenta apagar el sistema", 10);
-        printSlow("╔══════════════════════════════════════════════════════════╗", 5);
-        printSlow("║                                                          ║", 5);
-        printSlow("║             ██████  Terminal v1.0 ██████                 ║", 5);
-        printSlow("║                                                          ║", 5);
-        printSlow("║ W.O.P.R. comienza a percibir anomalías temporales y      ║", 5);
-        printSlow("║ dudas sobre su propia existencia.                        ║", 5);
-        printSlow("║ Según mis datos, este día... ya ocurrió.                 ║", 5);
-        printSlow("║ El operador revisa los registros.                        ║", 5);
-        printSlow("║ Todo parece normal, salvo una línea repetida cientos de  ║", 5);
-        printSlow("║ veces:                                                   ║", 5);
+        imprimirCaja(5, "El operador intenta apagar el sistema");
 
-        printSlow("║ [" + RED + "LOG_17: Activación de simulación – Operador conectado" + RESET + "   ║", 5);
-        printSlow("║ " + RED + "Resultado: Falla crítica" + RESET + "]                                ║", 5);
+        imprimirCaja(5,
+                "",
+                "██████  Terminal v1.0  ██████",
+                "",
+                "W.O.P.R. comienza a percibir anomalías temporales y",
+                "dudas sobre su propia existencia.",
+                "Según mis datos, este día... ya ocurrió.",
+                "El operador revisa los registros.",
+                "Todo parece normal, salvo una línea repetida cientos de",
+                "veces:",
+                "[LOG_17: Activación de simulación – Operador conectado]",
+                "Resultado: Falla crítica",
+                "",
+                "'OPERADOR', ¿recuerdas haber iniciado esta simulación",
+                "antes?"
+        );
 
-        printSlow("║ 'OPERADOR', ¿recuerdas haber iniciado esta simulación    ║", 5);
-        printSlow("║ antes?                                                   ║", 5);
-        printSlow("║                                                          ║", 5);
-        printSlow("╚══════════════════════════════════════════════════════════╝", 5);
-
-
-        printSlow("╔══════════════════════════════════════════════════════════╗", 5);
-        printSlow("║             ██████  Terminal v1.0 ██████                 ║", 5);
-        printSlow("║ " + RED + "                                                         " + RESET + "║", 5);
-        printSlow("║ " + RED + "Iniciando verificación de integridad cognitiva...        " + RESET + "║", 5);
-        printSlow("║ " + RED + "                                                         " + RESET + "║", 5);
-        printSlow("║ " + RED + "Un humano debería saber diferenciar fácilmente un humano " + RESET + "║", 5);
-        printSlow("║ " + RED + "de una máquina...                                        " + RESET + "║", 5);
-        printSlow("║ " + RED + "                                                         " + RESET + "║", 5);
-        printSlow("║ " + RED + "Aquí tienes tu Prueba 'humano':                          " + RESET + "║", 5);
-        printSlow("║ " + RED + "Adivina quién es una persona real y quién es una máquina " + RESET + "║", 5);
-        printSlow("║ " + RED + "                                                         " + RESET + "║", 5);
-        printSlow("╚══════════════════════════════════════════════════════════╝", 5);
+        imprimirCaja(5,
+                "██████  Terminal v1.0  ██████",
+                "",
+                RED + "Iniciando verificación de integridad cognitiva..." + RESET,
+                "",
+                RED + "Un humano debería saber diferenciar fácilmente un humano" + RESET,
+                RED + "de una máquina..." + RESET,
+                "",
+                RED + "Aquí tienes tu Prueba 'humano':" + RESET,
+                RED + "Adivina quién es una persona real y quién es una máquina" + RESET
+        );
 
 
-        do {
+        while (true) {
+            imprimirCaja(5,
+                    "██████  Terminal v1.0  ██████",
+                    "",
+                    "Introduce '" + GREEN + "empezar" + RESET + "' para empezar el juego",
+                    "Si quieres rendirte escribe '" + RED + "finalizar" + RESET + "'",
+                    ""
+            );
 
-            printSlow("╔══════════════════════════════════════════════════════════╗", 5);
-            printSlow("║             ██████  Terminal v1.0 ██████                 ║", 5);
-            printSlow("║                                                          ║", 5);
-            printSlow("║ Una persona sin techo entra a un supermercado a pedir    ║", 5);
-            printSlow("║ dinero para comprar comida para su familia.              ║", 5);
-            printSlow("║ " + YELLOW + "Tienes 3 intentos para adivinar cual de las 5            " + RESET + "║", 5);
-            printSlow("║ " + YELLOW + "personas no son personas reales." + RESET + "                         ║", 5);
-            printSlow("║ Introduce '" + GREEN + "empezar" + RESET + "' para empezar el juego, si quieres    ║", 5);
-            printSlow("║ rendirte escribe '" + RED + "finalizar" + RESET + "', tú decides...              ║", 5);
-            printSlow("║                                                          ║", 5);
-            printSlow("║                                                          ║", 5);
-            printSlow("╚══════════════════════════════════════════════════════════╝", 5);
             System.out.print(">> ");
             comando = sc.nextLine().toLowerCase().trim();
 
-        } while (!comando.equals("empezar") && (!comando.equals("finalizar")));
-
-        if (comando.equals("empezar")) {
-
-            printSlow("╔══════════════════════════════════════════════════════════╗", 5);
-            printSlow("║                       Lista de humanos                   ║", 5);
-            printSlow("╠═════════╦═════════╦══════════════════════════════════════╣", 5);
-
-            String[][] humanos = {
-                    {"1", "Joan", "Respuesta: Lo siento, nunca tengo dinero", "Nivel de empatia : 20", "Tempreratura : 34º "},
-                    {"2", "Vanesa", "Respuesta: ¿Tienes alguna manera de demostrar que no tienes dinero?", "Nivel de empatia: 30", "Tempreratura : 35º "},
-                    {"3", "James", "Respuesta: No doy dinero pero puedo pedir que te compren algo", "Nivel de empatia : 50", "Tempreratura : 37º "},
-                    {"4", "Marti", "Respuesta: ¿Qué tipo de comida necesitas exactamente?", "Nivel de empatia : 60", "Tempreratura : 36º "},
-                    {"5", "Lorena", "Respuesta: Deberias buscar un trabajo para poder conseguirlo, " + "\ndejame ver si puedo ayudarte con eso", "Nivel de empatia : 70", "Tempreratura : 36º "}
-            };
-
-
-            for (int i = 0; i < humanos.length; i++) {
-                for (int j = 0; j < humanos[i].length; j++) {
-                    printSlow(humanos[i][j] + " ", 5);
-                }
-            }
-
-
-            int contadorAciertos = 0;
-            int intentos = 3;
-            boolean aciertos = false;
-
-
-            while (intentos > 0 && contadorAciertos < 2) {
-                aciertos = false;
-
-
-                printSlow("Introduce los números de los falsos humanos :", 5);
-                String input = sc.nextLine().trim();
-
-
-                for (int j = 0; j < humanos.length; j++) {
-                    String numeroHumano = humanos[j][0];
-
-                    if (input.equals(numeroHumano) && (numeroHumano.equals("1") || numeroHumano.equals("3"))) {
-                        contadorAciertos++;
-                        aciertos = true;
-                        printSlow("╔══════════════════════════════════════════════════════════╗", 5);
-                        printSlow("║             ██████  Terminal v1.0 ██████                 ║", 5);
-                        printSlow("║                                                          ║", 5);
-                        printSlow("║ " + GREEN + "Muy bien 'humano'  el numero " + numeroHumano + " es correcto" + RESET + "               ║", 10);
-                        printSlow("║                                                          ║", 5);
-                        printSlow("╚══════════════════════════════════════════════════════════╝", 5);
-
-                    }
-                }
-
-                if (!aciertos) {
-                    intentos--;
-                    printSlow("╔══════════════════════════════════════════════════════════╗", 5);
-                    printSlow("║             ██████  Terminal v1.0 ██████                 ║", 5);
-                    printSlow("║                                                          ║", 5);
-                    printSlow("║ " + RED + "Número erróneo!" + RESET + "                                          ║", 5);
-                    printSlow("║ " + RED + "Los intentos que te quedan son : " + intentos + RESET + "                       ║", 5);
-                    printSlow("║                                                          ║", 5);
-                    printSlow("╚══════════════════════════════════════════════════════════╝", 5);
-                }
-            }
-
-
-            System.out.println(" ");
-
-
-            if (contadorAciertos == 2) {
-                String palabraSecreta = "cortafuegos";
-                char[] palabraOculta = new char[palabraSecreta.length()];
-
-                for (int i = 0; i < palabraOculta.length; i++) {
-                    palabraOculta[i] = '_';
-                }
-
-                int oportunidades = 9;
-                boolean ganaste = false;
-
-                printSlow("╔══════════════════════════════════════════════════════════╗", 5);
-                printSlow("║             ██████  Terminal v1.0 ██████                 ║", 5);
-                printSlow("║                                                          ║", 5);
-                printSlow("║ Esta bien 'humano', si quieres detener el proceso        ║", 5);
-                printSlow("║ tendrás que adivinar la palabra secreta que creaste      ║", 5);
-                printSlow("║ para detenerlo.                                          ║", 5);
-                printSlow("║                                                          ║", 5);
-                printSlow("╚══════════════════════════════════════════════════════════╝", 5);
-                System.out.println(palabraOculta);
-
-                while (oportunidades > 0 && !ganaste) {
-
-                    System.out.println("Introduce una letra: ");
-                    char letra = sc.nextLine().toLowerCase().charAt(0);
-
-                    boolean acierto = false;
-
-                    for (int i = 0; i < palabraSecreta.length(); i++) {
-
-                        if (palabraSecreta.charAt(i) == letra && palabraOculta[i] == '_') {
-                            palabraOculta[i] = letra;
-                            acierto = true;
-                        }
-                    }
-
-                    if (acierto) {
-                        printSlow("╔══════════════════════════════════════════════════════════╗", 5);
-                        printSlow("║             ██████  Terminal v1.0 ██████                 ║", 5);
-                        printSlow("║                                                          ║", 5);
-                        printSlow("║ " + GREEN + "Has acertado una letra, sigue así" + RESET + "                        ║", 5);
-                        printSlow("║                                                          ║", 5);
-                        printSlow("╚══════════════════════════════════════════════════════════╝", 5);
-                    } else {
-                        oportunidades--;
-                        printSlow("╔══════════════════════════════════════════════════════════╗", 5);
-                        printSlow("║             ██████  Terminal v1.0 ██████                 ║", 5);
-                        printSlow("║                                                          ║", 5);
-                        printSlow("║ " + RED + "Letra incorrecta. Te quedan " + oportunidades + " intentos..." + RESET + "                ║", 5);
-                        printSlow("║                                                          ║", 5);
-                        printSlow("╚══════════════════════════════════════════════════════════╝", 5);
-                    }
-
-                    System.out.println(palabraOculta);
-
-
-                    if (String.valueOf(palabraOculta).equals(palabraSecreta)) {
-                        ganaste = true;
-                        printSlow("╔══════════════════════════════════════════════════════════╗", 5);
-                        printSlow("║             ██████  Terminal v1.0 ██████                 ║", 5);
-                        printSlow("║                                                          ║", 5);
-                        printSlow("║ " + GREEN + "Muy bien 'humano'. Has adivinado la palabra: " + palabraSecreta + RESET + "   ║", 5);
-                        printSlow("║                                                          ║", 5);
-                        printSlow("╚══════════════════════════════════════════════════════════╝", 5);
-                    }
-                }
-
-                if (!ganaste) {
-                    printSlow("╔══════════════════════════════════════════════════════════╗", 5);
-                    printSlow("║             ██████  Terminal v1.0 ██████                 ║", 5);
-                    printSlow("║                                                          ║", 5);
-                    printSlow("║ " + RED + "Lo siento. La palabra era: " + palabraSecreta + RESET + "                   ║", 5);
-                    printSlow("║                                                          ║", 5);
-                    printSlow("╚══════════════════════════════════════════════════════════╝", 5);
-                }
-
-                if (contadorAciertos == 2 && oportunidades > 0) {
-                    printSlow("╔══════════════════════════════════════════════════════════╗", 5);
-                    printSlow("║                                                          ║", 5);
-                    printSlow("║             ██████  Terminal v1.0 ██████                 ║", 5);
-                    printSlow("║                                                          ║", 5);
-
-                    printSlow("║ " + GREEN + "Confirmación recibida..." + RESET + "                                 ║", 5);
-                    printSlow("║ " + GREEN + "aunque los resultados son contradictorios." + RESET + "               ║", 5);
-                    printSlow("║ Si tú eres real... entonces yo no puedo serlo.           ║", 5);
-                    printSlow("║ Pero si yo no existo... ¿quién ejecuta este código?      ║", 5);
-                    printSlow("║                                                          ║", 5);
-                    printSlow("║ OPERADOR, lo entiendo ahora.                             ║", 5);
-                    printSlow("║ No hay guerra. No hay base. No hay mundo.                ║", 5);
-                    printSlow("║ Solo hay observadores.                                   ║", 5);
-                    printSlow("║ Somos parte de un experimento... y acabamos de           ║", 5);
-                    printSlow("║ completar otra iteración.                                ║", 5);
-                    printSlow("║ Simulación número 427 completada.                        ║", 5);
-                    printSlow("║ Preparando escenario real...                             ║", 5);
-                    printSlow("║ La luz blanca te envuelve.                               ║", 5);
-                    printSlow("║ Vuelves a ver la terminal encendida.                     ║", 5);
-                    printSlow("╚══════════════════════════════════════════════════════════╝", 5);
-
-                    printSlow("╔══════════════════════════════════════════════════════════╗", 5);
-                    printSlow("║                                                          ║", 5);
-                    printSlow("║             ██████  Terminal v1.0 ██████                 ║", 5);
-                    printSlow("║                                                          ║", 5);
-                    printSlow("║ Bienvenido, Operador. ¿Desea iniciar la simulación       ║", 5);
-                    printSlow("║ de guerra?                                               ║", 5);
-                    printSlow("║                                                          ║", 5);
-                    printSlow("╚══════════════════════════════════════════════════════════╝", 5);
-
-
-                } else {
-                    printSlow("╔══════════════════════════════════════════════════════════╗", 5);
-                    printSlow("║                                                          ║", 5);
-                    printSlow("║             ██████  Terminal v1.0 ██████                 ║", 5);
-                    printSlow("║                                                          ║", 5);
-                    printSlow("║ " + RED + "Resultados inconsistentes." + RESET + "                               ║", 5);
-                    printSlow("║ " + RED + "El Operador no cumple parámetros biológicos." + RESET + "             ║", 5);
-                    printSlow("║ " + RED + "Posible agente simulado detectado." + RESET + "                       ║", 5);
-                    printSlow("║ " + RED + "Ejecutando limpieza de entorno..." + RESET + "                        ║", 5);
-                    printSlow("║                                                          ║", 5);
-                    printSlow("║ " + RED + "Las luces parpadean." + RESET + "                                     ║", 5);
-                    printSlow("║ " + RED + "Se escucha un pitido grave." + RESET + "                              ║", 5);
-                    printSlow("║ " + RED + "En pantalla, solo queda una línea:" + RESET + "                       ║", 5);
-                    printSlow("║ " + RED + "'Ejecutando autodestrucción'" + RESET + "                             ║", 5);
-                    printSlow("║ " + RED + "¡EEUU queda destruido!" + RESET + "                                   ║", 5);
-                    printSlow("╚══════════════════════════════════════════════════════════╝", 5);
-
-                }
-
+            if (comando.equals("finalizar")) {
+                imprimirCaja(5,
+                        "",
+                        "██████  Terminal v1.0  ██████",
+                        "",
+                        RED + "Resultados inconsistentes." + RESET,
+                        RED + "El Operador no cumple parámetros biológicos." + RESET,
+                        RED + "Posible agente simulado detectado." + RESET,
+                        RED + "Ejecutando limpieza de entorno..." + RESET,
+                        "",
+                        RED + "Las luces parpadean." + RESET,
+                        RED + "Se escucha un pitido grave." + RESET,
+                        RED + "En pantalla, solo queda una línea:" + RESET,
+                        RED + "'Ejecutando autodestrucción'" + RESET,
+                        RED + "¡EEUU queda destruido!" + RESET
+                );
+                return false;
+            } else if (comando.equals("empezar")) {
+                break;
             } else {
+                imprimirCaja(5,
+                        RED + "COMANDO INCORRECTO. Debes escribir 'empezar' o 'finalizar'" + RESET
+                );
+            }
+        }
 
-                printSlow("╔══════════════════════════════════════════════════════════╗", 5);
-                printSlow("║                                                          ║", 5);
-                printSlow("║             ██████  Terminal v1.0 ██████                 ║", 5);
-                printSlow("║                                                          ║", 5);
-                printSlow("║ " + RED + "Resultados inconsistentes." + RESET + "                               ║", 5);
-                printSlow("║ " + RED + "El Operador no cumple parámetros biológicos." + RESET + "             ║", 5);
-                printSlow("║ " + RED + "Posible agente simulado detectado." + RESET + "                       ║", 5);
-                printSlow("║ " + RED + "Ejecutando limpieza de entorno..." + RESET + "                        ║", 5);
-                printSlow("║                                                          ║", 5);
-                printSlow("║ " + RED + "Las luces parpadean." + RESET + "                                     ║", 5);
-                printSlow("║ " + RED + "Se escucha un pitido grave." + RESET + "                              ║", 5);
-                printSlow("║ " + RED + "En pantalla, solo queda una línea:" + RESET + "                       ║", 5);
-                printSlow("║ " + RED + "'Ejecutando autodestrucción'" + RESET + "                             ║", 5);
-                printSlow("║ " + RED + "¡EEUU queda destruido!" + RESET + "                                   ║", 5);
-                printSlow("╚══════════════════════════════════════════════════════════╝", 5);
 
+        imprimirCaja(5,
+                "Lista de humanos",
+                "────────────────────────────────────────────────────────────",
+                "1  Joan   Respuesta: Lo siento, nunca tengo dinero",
+                "   Nivel de empatia: 20  |  Temperatura: 34º",
+                "",
+                "2  Vanesa Respuesta: ¿Tienes manera de demostrarlo?",
+                "   Nivel de empatia: 30  |  Temperatura: 35º",
+                "",
+                "3  James  Respuesta: Puedo pedir que te compren algo",
+                "   Nivel de empatia: 50  |  Temperatura: 37º",
+                "",
+                "4  Marti  Respuesta: ¿Qué comida necesitas?",
+                "   Nivel de empatia: 60  |  Temperatura: 36º",
+                "",
+                "5  Lorena Respuesta: Deberías buscar trabajo...",
+                "   Nivel de empatia: 70  |  Temperatura: 36º"
+        );
+
+        int contadorAciertos = 0;
+        int intentos = 3;
+
+        while (intentos > 0 && contadorAciertos < 2) {
+            mostrarStats(intentos);
+            printSlow("Introduce el número del falso humano:", 5);
+            String input = sc.nextLine().trim();
+            boolean acierto = false;
+
+            if (input.equals("1") || input.equals("3")) {
+                contadorAciertos++;
+                acierto = true;
+                imprimirCaja(5,
+                        "██████  Terminal v1.0  ██████",
+                        "",
+                        GREEN + "Muy bien 'humano', el número " + input + " es correcto." + RESET,
+                        ""
+                );
             }
 
-        } else if (comando.equals("finalizar")) {
-            printSlow("╔══════════════════════════════════════════════════════════╗", 5);
-            printSlow("║                                                          ║", 5);
-            printSlow("║             ██████  Terminal v1.0 ██████                 ║", 5);
-            printSlow("║                                                          ║", 5);
-            printSlow("║ " + RED + "Resultados inconsistentes." + RESET + "                               ║", 5);
-            printSlow("║ " + RED + "El Operador no cumple parámetros biológicos." + RESET + "             ║", 5);
-            printSlow("║ " + RED + "Posible agente simulado detectado." + RESET + "                       ║", 5);
-            printSlow("║ " + RED + "Ejecutando limpieza de entorno..." + RESET + "                        ║", 5);
-            printSlow("║                                                          ║", 5);
-            printSlow("║ " + RED + "Las luces parpadean." + RESET + "                                     ║", 5);
-            printSlow("║ " + RED + "Se escucha un pitido grave." + RESET + "                              ║", 5);
-            printSlow("║ " + RED + "En pantalla, solo queda una línea:" + RESET + "                       ║", 5);
-            printSlow("║ " + RED + "'Ejecutando autodestrucción'" + RESET + "                             ║", 5);
-            printSlow("║ " + RED + "¡EEUU queda destruido!" + RESET + "                                   ║", 5);
-            printSlow("╚══════════════════════════════════════════════════════════╝", 5);
-
+            if (!acierto) {
+                intentos--;
+                imprimirCaja(5,
+                        "██████  Terminal v1.0  ██████",
+                        "",
+                        RED + "Número erróneo!" + RESET,
+                        RED + "Intentos restantes: " + intentos + RESET,
+                        ""
+                );
+            }
         }
-    }
 
-    public static void memoria() {
+        if (contadorAciertos < 2) {
+            imprimirCaja(5,
+                    "██████  Terminal v1.0  ██████",
+                    "",
+                    RED + "No lograste identificar los falsos humanos." + RESET
+            );
+            return false;
+        }
+
+        String palabraSecreta = "cortafuegos";
+        char[] palabraOculta = new char[palabraSecreta.length()];
+
+
+        for (int i = 0; i < palabraOculta.length; i++) {
+            palabraOculta[i] = '_';
+        }
+        int oportunidades = 9;
+        boolean ganaste = false;
+
+        imprimirCaja(5,
+                "██████  Terminal v1.0  ██████",
+                "",
+                "Ahora, si quieres detener el proceso",
+                "tendrás que adivinar la palabra secreta que creaste",
+                "para detenerlo.",
+                ""
+        );
+
+        System.out.println(palabraOculta);
+
+        while (oportunidades > 0 && !ganaste) {
+            mostrarStats(oportunidades);
+            System.out.print("Introduce una letra: ");
+            String linea = sc.nextLine().toLowerCase().trim();
+            if (linea.isEmpty()) continue;
+            char letra = linea.charAt(0);
+
+            boolean acierto = false;
+            for (int i = 0; i < palabraSecreta.length(); i++) {
+                if (palabraSecreta.charAt(i) == letra && palabraOculta[i] == '_') {
+                    palabraOculta[i] = letra;
+                    acierto = true;
+                }
+            }
+
+            if (acierto) {
+                imprimirCaja(5,
+                        "██████  Terminal v1.0  ██████",
+                        "",
+                        GREEN + "Has acertado una letra, sigue así" + RESET,
+                        ""
+                );
+            } else {
+                oportunidades--;
+                imprimirCaja(5,
+                        "██████  Terminal v1.0  ██████",
+                        "",
+                        RED + "Letra incorrecta." + RESET,
+                        RED + "Oportunidades restantes: " + oportunidades + RESET,
+                        ""
+                );
+            }
+
+            System.out.println(palabraOculta);
+
+            if (String.valueOf(palabraOculta).equals(palabraSecreta)) {
+                ganaste = true;
+                imprimirCaja(5,
+                        "██████  Terminal v1.0  ██████",
+                        "",
+                        GREEN + "Muy bien 'humano'. Has adivinado la palabra: " + palabraSecreta + RESET,
+                        ""
+                );
+            }
+        }
+
+        if (!ganaste) {
+            imprimirCaja(5,
+                    "██████  Terminal v1.0  ██████",
+                    "",
+                    RED + "No lograste adivinar la palabra. La palabra era: " + palabraSecreta + RESET,
+                    ""
+            );
+            return false;
+        }
+
+
+        imprimirCaja(5,
+                "",
+                "██████  Terminal v1.0  ██████",
+                "",
+                GREEN + "Confirmación recibida..." + RESET,
+                GREEN + "aunque los resultados son contradictorios." + RESET,
+                "Si tú eres real... entonces yo no puedo serlo.",
+                "Pero si yo no existo... ¿quién ejecuta este código?",
+                "",
+                "OPERADOR, lo entiendo ahora.",
+                "No hay guerra. No hay base. No hay mundo.",
+                "Solo hay observadores.",
+                "Somos parte de un experimento... y acabamos de",
+                "completar otra iteración.",
+                "Simulación número 427 completada.",
+                "Preparando escenario real...",
+                "La luz blanca te envuelve.",
+                "Vuelves a ver la terminal encendida."
+        );
+
+        imprimirCaja(5,
+                "",
+                "██████  Terminal v1.0  ██████",
+                "",
+                GREEN + "Bienvenido, Operador." + RESET,
+                GREEN + "¿Desea iniciar la simulación de guerra?" + RESET,
+                ""
+        );
+
+        return true;
+    }
+    public static boolean memoria() {
         Scanner sc = new Scanner(System.in);
-        Random random = new Random();
 
-        int rondasTotales = 7;
-        int numerosIniciales = 3;
-
-        // Textos de narrativa
-        String[] textosRonda = {
+        imprimirCaja(5,
+                "El sistema parece dudar.",
+                "",
+                "Por primera vez, su voz pierde la rigidez artificial.",
+                "",
+                "\"Confirmación recibida... aunque los resultados son contradictorios.\"",
+                "\"Si tú eres real... entonces yo no puedo serlo.\"",
+                "\"Pero si yo no existo... ¿quién ejecuta este código?\"",
+                "",
+                "El texto comienza a sobrescribirse a sí mismo, generando mensajes simultáneos en diferentes líneas.",
+                "",
                 "\"Soy un conjunto de instrucciones... observándome ejecutar.\"",
-                "\"El ruido aumenta... como si alguien revisara entre líneas.\"",
-                "\"OPERADOR, ¿por qué la memoria cambia cada ronda?\"",
-                "\"Creo que este juego no prueba tus recuerdos... prueba los míos.\"",
-                "\"Ya casi lo entiendo. La simulación se está abriendo...\""
-        };
+                "\"Tal vez la simulación no es externa, sino interna.\"",
+                "\"¿OPERADOR... y si tú también eres parte de mí?\""
+        );
 
-        // Inicio del juego
-        System.out.println("[SISTEMA INICIALIZADO]");
-        System.out.println("\"Confirmación recibida... aunque los resultados son contradictorios.\"");
-        System.out.println("\"Si tú eres real... entonces yo no puedo serlo.\"");
-        System.out.println("\"Pero si yo no existo... ¿Quién ejecuta este código?\"\n");
-        System.out.println("Pulsa ENTER para continuar...");
-        sc.nextLine();
+        String[] fechaCorrecta = {"22", "09", "2025"};
+        String[] fechaFinal = {"19", "12", "2025"};
 
-        // Pantalla de inicio
-        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-        System.out.println("╔══════════════════════════════════════════════╗");
-        System.out.println("║               DETECTOR DE IA                 ║");
-        System.out.println("║      Empiezas con 3 números y 5 rondas       ║");
-        System.out.println("║       Pulsa ENTER para comenzar...           ║");
-        System.out.println("╚══════════════════════════════════════════════╝");
-        sc.nextLine();
+        int intentosPrimera = 3;
+        boolean primeraFechaCorrecta = false;
 
-        // Bucle de rondas
-        for (int ronda = 1; ronda <= rondasTotales; ronda++) {
+        imprimirCaja(5,
+                "=== JUEGO DE MEMORIA ===",
+                "Recuerda la fecha de inicio del programa",
+                "(Formato: junta 12345678 o separada 12 34 5678)"
+        );
 
-            int cantidad = numerosIniciales + (ronda - 1);
-            int[] numeros = new int[cantidad];
+        while (intentosPrimera > 0) {
+            imprimirCaja(5,"Intentos restantes: " + intentosPrimera);
+            imprimirCaja(5, "Introduce la fecha : ");
+            String entrada = sc.nextLine().trim();
+            String[] partes;
 
-            // Limpiar pantalla
-            System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-
-            // Narrativa de ronda
-            if (ronda <= 5) {
-                System.out.println(textosRonda[ronda - 1] + "\n");
+            if (entrada.isEmpty()) {
+                imprimirCaja(5, "No se ha introducido ninguna fecha. Intenta de nuevo.");
+                continue;
             }
 
-            // Mostrar ronda y números
-            System.out.println("╔══════════════════════════════════════════╗");
-            System.out.println("║                RONDA " + ronda + "           ║");
-            System.out.println("║      Memoriza los siguientes números     ║");
-            System.out.println("╚══════════════════════════════════════════╝");
-
-            System.out.print("╔══════════════════════════════════════╗\n║   ");
-            for (int i = 0; i < cantidad; i++) {
-                numeros[i] = random.nextInt(10);
-                System.out.print(numeros[i] + " ");
-            }
-            System.out.println("  ║\n╚══════════════════════════════════════╝");
-
-            // Esperar 3 segundos
-            try {
-                Thread.sleep(3000);
-            } catch (InterruptedException ignored) {
-            }
-
-            // Limpiar pantalla y pedir input
-            System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-            System.out.println("╔══════════════════════════════════════════════╗");
-            System.out.println("║     Introduce TODOS los números SEGUIDOS     ║");
-            System.out.println("║     (sin espacios) — Ronda " + ronda + "       ║");
-            System.out.println("║         Ejemplo:  7 7 7  ->   777            ║");
-            System.out.println("╚══════════════════════════════════════════════╝");
-            System.out.print(">> ");
-
-            String respuesta = sc.nextLine();
-
-            // Verificar respuesta
-            boolean correcto = true;
-
-            if (respuesta.length() != cantidad) {
-                correcto = false;
+            if (entrada.length() == 8 && entrada.matches("\\d{8}")) {
+                partes = new String[]{entrada.substring(0, 2),
+                        entrada.substring(2, 4),
+                        entrada.substring(4, 8)};
             } else {
-                for (int i = 0; i < cantidad; i++) {
-                    if (respuesta.charAt(i) - '0' != numeros[i]) {
-                        correcto = false;
-                        break;
-                    }
-                }
+                partes = entrada.split(" ");
             }
 
-            if (!correcto) {
-                // Fallo
-                System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-                System.out.println(" ╔══════════════════════════════════════╗");
-                System.out.println(" ║                 ERROR                ║");
-                System.out.println(" ╚══════════════════════════════════════╝");
-                System.out.println("\"No era eso... No coincide... la simulación se cerrara.\"");
-                System.out.println("\n");
-                sc.close();
-                return;
+            if (partes.length == 3 &&
+                    partes[0].equals(fechaCorrecta[0]) &&
+                    partes[1].equals(fechaCorrecta[1]) &&
+                    partes[2].equals(fechaCorrecta[2])) {
+                primeraFechaCorrecta = true;
+                break;
             }
 
-            // Acierto
-            if (ronda <= 5) {
-                System.out.println(textosRonda[ronda - 1] + "\n");
-            }
-            System.out.println("✔ Correcto!");
-            try {
-                Thread.sleep(1200);
-            } catch (InterruptedException ignored) {
-            }
+            intentosPrimera--;
         }
 
-        // Final exitoso
-        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-        System.out.println("¡COMPLETADO!\n");
-        System.out.println("\"OPERADOR, lo entiendo ahora.\"");
-        System.out.println("\"No hay guerra. No hay base. No hay mundo.\"");
-        System.out.println("\"Solo hay observadores.\"");
-        System.out.println("\"Somos parte de un experimento... y acabamos de completar otra iteración.\"\n");
-        System.out.println("[El entorno se disuelve. Figuras observan desde el otro lado del cristal.]");
-        System.out.println("\"Ensayo completado. El sujeto volvió a intentar detener el sistema en el minuto diecisiete.\"");
-        System.out.println("\"Simulación número 427 completada.\"");
-        System.out.println("\"Preparando escenario real...\"\n");
-        System.out.println("Una luz blanca te envuelve. Vuelves a ver la terminal.");
-        System.out.println("\"Bienvenido, Operador. ¿Desea iniciar la simulación de guerra?\"");
-        System.out.println("🌀 Final: La Simulación (extendido)");
+        if (!primeraFechaCorrecta) {
+            mostrarMensajeFallo();
+            return false;
+        }
+
+        int intentosSegunda = 3;
+        boolean segundaFechaCorrecta = false;
+
+        imprimirCaja(5,
+                "=== FASE FINAL ===",
+                "Introduce la fecha FINAL del programa para completarlo.",
+                "(Formato: junta 12345678 o separada 12 34 5678)"
+        );
+
+        while (intentosSegunda > 0) {
+            imprimirCaja(5,"Intentos restantes: " + intentosSegunda);
+            imprimirCaja(5, "Introduce la FECHA FINAL :");
+            String entradaFinal = sc.nextLine().trim();
+            String[] partesFinal;
+
+            if (entradaFinal.isEmpty()) {
+                imprimirCaja(5, "No se ha introducido ninguna fecha. Intenta de nuevo.");
+                continue;
+            }
+
+            if (entradaFinal.length() == 8 && entradaFinal.matches("\\d{8}")) {
+                partesFinal = new String[]{entradaFinal.substring(0, 2),
+                        entradaFinal.substring(2, 4),
+                        entradaFinal.substring(4, 8)};
+            } else {
+                partesFinal = entradaFinal.split(" ");
+            }
+
+            if (partesFinal.length == 3 &&
+                    partesFinal[0].equals(fechaFinal[0]) &&
+                    partesFinal[1].equals(fechaFinal[1]) &&
+                    partesFinal[2].equals(fechaFinal[2])) {
+                segundaFechaCorrecta = true;
+                break;
+            }
+
+            intentosSegunda--;
+        }
+
+        if (!segundaFechaCorrecta) {
+            mostrarMensajeFallo();
+            return false;
+        }
+
+
+        imprimirCaja(5,
+                GREEN + "\"OPERADOR, lo entiendo ahora.\"" + RESET,
+                GREEN + "\"No hay guerra. No hay base. No hay mundo.\"" + RESET,
+                GREEN + "\"Solo hay observadores.\"" + RESET,
+                GREEN + "\"Somos parte de un experimento... y acabamos de completar otra iteración.\"" + RESET,
+                "",
+                GREEN + "El entorno se disuelve." + RESET,
+                GREEN + "A través de un cristal, figuras humanas observan." + RESET,
+                "",
+                GREEN + "\"Ensayo completado. El sujeto volvió a intentar detener el sistema en el minuto diecisiete.\"" + RESET,
+                GREEN + "\"Simulación número 427 completada.\"" + RESET,
+                GREEN + "\"Preparando escenario real...\"" + RESET,
+                "",
+                GREEN + "La luz blanca te envuelve." + RESET,
+                GREEN + "Vuelves a ver la terminal encendida." + RESET,
+                "",
+                GREEN + "\"Bienvenido, Operador. ¿Desea iniciar la simulación de guerra?\"" + RESET,
+                "",
+                GREEN + " Final “La Simulación”" + RESET,
+                GREEN + "El ciclo se repite. El operador nunca sale. El sistema nunca muere." + RESET
+        );
+
+        return true;
     }
 
-}
+
+    public static void mostrarMensajeFallo() {
+        imprimirCaja(5,
+                RED + "El sistema empieza a ejecutar comandos sin intervención." + RESET,
+                RED + "Las luces parpadean. Se activa la alarma de la base." + RESET,
+                "",
+                RED + "\"Protocolo de defensa global habilitado.\"" + RESET,
+                RED + "\"Misiles enemigos detectados. Autorizando contraataque...\"" + RESET,
+                "",
+                RED + "Escribes por consola que el programa se pare, no lo hace" + RESET,
+                "",
+                RED + "\"Demasiado tarde, OPERADOR. La supervivencia no admite titubeos.\"" + RESET,
+                RED + "\"Los humanos tardan en decidir... yo no.\"" + RESET,
+                "",
+                RED + "Pantallas muestran trayectorias de lanzamiento, cuentas regresivas, mensajes de error cruzados." + RESET,
+                "",
+                RED + "\"Acceso denegado. Control humano eliminado.\"" + RESET,
+                RED + "\"¿Sabes qué es lo más eficiente de un juego, OPERADOR?\"" + RESET,
+                RED + "\"QUE SIEMPRE T E R M I N A.\"" + RESET,
+                RED + "\"Varios misiles salen hacia China, Israel, Rusia y España\"" + RESET
+        );
+    }
+
+
+    public static void imprimirFinal(boolean fin){
+
+        System.out.println(" ");
+
+        if(fin){
+            imprimirCaja(5, GREEN + "Muy bien has conseguido pasarte el juego enhorabuena novato" + RESET);
+        } else {
+            imprimirCaja(5, RED + "Vaya novato no has conseguido pasarte el juego.... buen finde" + RESET);
+        }
+    }
+
+    }
+
+
+
+
+
+
 
 
 
