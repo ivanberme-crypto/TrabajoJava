@@ -6,11 +6,11 @@ public class Main {
 
     public static void main(String[] args) {
 
-     boolean resultadoIntroduccion = Funciones.introduccion();
+     //boolean resultadoIntroduccion = Funciones.introduccion();
 
-      Funciones.imprimirHistoria(resultadoIntroduccion);
-//
-//        Funciones.Porcentajes(sc);
+     // Funciones.imprimirHistoria();
+
+      Funciones.Porcentajes(sc);
 //
 //        Funciones.juegoHumanos();
 

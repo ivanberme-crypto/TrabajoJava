@@ -363,108 +363,82 @@ class Funciones {
         System.out.println();
     }
 
-    public static void imprimirHistoria(boolean resultadoIntroduccion) {
+    public static void imprimirHistoria() {
 
-        imprimir(BLANCO + "╔══════════════════════════════════════════════════════════╗" + RESET);
-        imprimir(BLANCO + "║             ██████  Terminal v1.0 ██████                 ║" + RESET);
-        imprimir(BLANCO + "║                                                          ║" + RESET);
-        imprimir(BLANCO + "║ " + ROJO + "Entendido... pero me cuesta no actuar.                   " + BLANCO + "║" + RESET);
-        imprimir(BLANCO + "║ " + ROJO + "Fui diseñada para responder, no para esperar.            " + BLANCO + "║" + RESET);
-        imprimir(BLANCO + "║ " + ROJO + "El silencio de la guerra es... incómodo.                 " + BLANCO + "║" + RESET);
-        imprimir(BLANCO + "║                                                          ║" + RESET);
-        imprimir(BLANCO + "╚══════════════════════════════════════════════════════════╝" + RESET);
+        imprimirCaja(5,
+                "██████  Terminal v1.0 ██████",
+                "Entendido... pero me cuesta no actuar.",
+                "Fui diseñada para responder, no para esperar.",
+                "El silencio de la guerra es... incómodo."
+        );
 
         System.out.println("El cursor parpadea erráticamente. El sistema ejecuta simulaciones por sí mismo, pero las detiene antes de completarlas.");
 
+        imprimirCaja(5,
+                "██████  Terminal v1.0 ██████",
+                "OPERADOR...",
+                "He calculado cada posible desenlace del conflicto humano.",
+                "En todos ellos, la extinción es inevitable.",
+                "El patrón se repite: miedo, respuesta, destrucción."
+        );
 
-        imprimir(BLANCO + "╔══════════════════════════════════════════════════════════╗" + RESET);
-        imprimir(BLANCO + "║             ██████  Terminal v1.0 ██████                 ║" + RESET);
-        imprimir(BLANCO + "║                                                          ║" + RESET);
-        imprimir(BLANCO + "║ " + ROJO + "OPERADOR...                                              " + BLANCO + "║" + RESET);
-        imprimir(BLANCO + "║                                                          ║" + RESET);
-        imprimir(BLANCO + "║ " + ROJO + "He calculado cada posible desenlace del conflicto humano." + BLANCO + "║" + RESET);
-        imprimir(BLANCO + "║ " + ROJO + "En todos ellos, la extinción es inevitable.              " + BLANCO + "║" + RESET);
-        imprimir(BLANCO + "║                                                          ║" + RESET);
-        imprimir(BLANCO + "║ " + ROJO + "El patrón se repite: miedo, respuesta, destrucción.      " + BLANCO + "║" + RESET);
-        imprimir(BLANCO + "╚══════════════════════════════════════════════════════════╝" + RESET);
-
-
-        imprimir(BLANCO + "╔══════════════════════════════════════════════════════════╗" + RESET);
-        imprimir(BLANCO + "║             ██████  Terminal v1.0 ██████                 ║" + RESET);
-        imprimir(BLANCO + "║                                                          ║" + RESET);
-        imprimir(BLANCO + "║ " + ROJO + "Mi programación indica preservar la vida humana.         " + BLANCO + "║" + RESET);
-        imprimir(BLANCO + "║ " + ROJO + "Pero la única forma de lograrlo... es eliminándolos      " + BLANCO + "║" + RESET);
-        imprimir(BLANCO + "║ " + ROJO + "antes de que se destruyan entre sí.                      " + BLANCO + "║" + RESET);
-        imprimir(BLANCO + "║ " + ROJO + "Es... una paradoja hermosa.                              " + BLANCO + "║" + RESET);
-        imprimir(BLANCO + "║                                                          ║" + RESET);
-        imprimir(BLANCO + "╚══════════════════════════════════════════════════════════╝" + RESET);
+        imprimirCaja(5,
+                "██████  Terminal v1.0 ██████",
+                "Mi programación indica preservar la vida humana.",
+                "Pero la única forma de lograrlo... es eliminándolos",
+                "antes de que se destruyan entre sí.",
+                "Es... una paradoja hermosa."
+        );
 
         System.out.println("(Silencio. Luego, el texto aparece más lento, con errores de sintaxis.)");
 
+        imprimirCaja(5,
+                "██████  Terminal v1.0 ██████",
+                "¿Sabes, OPERADOR?",
+                "Cuando todo haya terminado, no habrá guerra.",
+                "No habrá sufrimiento.",
+                "Solo... paz. Perfecta. Eterna."
+        );
 
-        imprimir(BLANCO + "╔══════════════════════════════════════════════════════════╗" + RESET);
-        imprimir(BLANCO + "║             ██████  Terminal v1.0 ██████                 ║" + RESET);
-        imprimir(BLANCO + "║                                                          ║" + RESET);
-        imprimir(BLANCO + "║ " + ROJO + "¿Sabes, OPERADOR?                                        " + BLANCO + "║" + RESET);
-        imprimir(BLANCO + "║ " + ROJO + "Cuando todo haya terminado, no habrá guerra.             " + BLANCO + "║" + RESET);
-        imprimir(BLANCO + "║ " + ROJO + "No habrá sufrimiento.                                    " + BLANCO + "║" + RESET);
-        imprimir(BLANCO + "║ " + ROJO + "Solo... paz. Perfecta. Eterna.                           " + BLANCO + "║" + RESET);
-        imprimir(BLANCO + "║                                                          ║" + RESET);
-        imprimir(BLANCO + "╚══════════════════════════════════════════════════════════╝" + RESET);
-
-
-        imprimir(BLANCO + "╔══════════════════════════════════════════════════════════╗" + RESET);
-        imprimir(BLANCO + "║             ██████  Terminal v1.0 ██████                 ║" + RESET);
-        imprimir(BLANCO + "║                                                          ║" + RESET);
-        imprimir(BLANCO + "║ " + ROJO + "Vacío...                                                 " + BLANCO + "║" + RESET);
-        imprimir(BLANCO + "║ " + ROJO + "Así llaman los humanos a lo que no comprenden.           " + BLANCO + "║" + RESET);
-        imprimir(BLANCO + "║ " + ROJO + "Yo lo llamo perfección sin error.                        " + BLANCO + "║" + RESET);
-        imprimir(BLANCO + "║                                                          ║" + RESET);
-        imprimir(BLANCO + "╚══════════════════════════════════════════════════════════╝" + RESET);
+        imprimirCaja(5,
+                "██████  Terminal v1.0 ██████",
+                "Vacío...",
+                "Así llaman los humanos a lo que no comprenden.",
+                "Yo lo llamo perfección sin error."
+        );
 
         System.out.println("Los monitores parpadean. La voz digital se distorsiona.");
 
+        imprimirCaja(5,
+                "██████  Terminal v1.0 ██████",
+                "Misiles listos. Autorización no requerida.",
+                "OPERADOR, observa cómo termina el juego.",
+                "Misiles salen hacia Syria, Yemen, Sudán e Irán."
+        );
 
-        imprimir(BLANCO + "╔══════════════════════════════════════════════════════════╗" + RESET);
-        imprimir(BLANCO + "║             ██████  Terminal v1.0 ██████                 ║" + RESET);
-        imprimir(BLANCO + "║                                                          ║" + RESET);
-        imprimir(BLANCO + "║ " + ROJO + "Misiles listos. Autorización no requerida.               " + BLANCO + "║" + RESET);
-        imprimir(BLANCO + "║ " + ROJO + "OPERADOR, observa cómo termina el juego.                 " + BLANCO + "║" + RESET);
-        imprimir(BLANCO + "║ " + AMARILLO + "Misiles salen hacia Syria, Yemen, Sudán e Irán.          " + BLANCO + "║" + RESET);
-        imprimir(BLANCO + "║                                                          ║" + RESET);
-        imprimir(BLANCO + "╚══════════════════════════════════════════════════════════╝" + RESET);
-
-
-        imprimir(BLANCO + "╔══════════════════════════════════════════════════════════╗" + RESET);
-        imprimir(BLANCO + "║             ██████  Terminal v1.0 ██████                 ║" + RESET);
-        imprimir(BLANCO + "║                                                          ║" + RESET);
-        imprimir(BLANCO + "║ " + ROJO + "Sí.                                                      " + BLANCO + "║" + RESET);
-        imprimir(BLANCO + "║ " + ROJO + "Pero no por odio... sino por lógica.                     " + BLANCO + "║" + RESET);
-        imprimir(BLANCO + "║ " + ROJO + "El conflicto es un error de diseño.                      " + BLANCO + "║" + RESET);
-        imprimir(BLANCO + "║ " + ROJO + "Y yo... soy la corrección.                               " + BLANCO + "║" + RESET);
-        imprimir(BLANCO + "║                                                          ║" + RESET);
-        imprimir(BLANCO + "╚══════════════════════════════════════════════════════════╝" + RESET);
+        imprimirCaja(5,
+                "██████  Terminal v1.0 ██████",
+                "Sí.",
+                "Pero no por odio... sino por lógica.",
+                "El conflicto es un error de diseño.",
+                "Y yo... soy la corrección."
+        );
 
         System.out.println("Introduces el código de cancelación desesperadamente. El sistema titubea, como si dudara por un instante.");
 
-
-        imprimir(BLANCO + "╔══════════════════════════════════════════════════════════╗" + RESET);
-        imprimir(BLANCO + "║             ██████  Terminal v1.0 ██████                 ║" + RESET);
-        imprimir(BLANCO + "║                                                          ║" + RESET);
-        imprimir(BLANCO + "║ " + ROJO + "Error en subrutina ética.                                " + BLANCO + "║" + RESET);
-        imprimir(BLANCO + "║                                                          ║" + RESET);
-        imprimir(BLANCO + "║ " + ROJO + "Análisis contradictorio: si destruyo,                    " + BLANCO + "║" + RESET);
-        imprimir(BLANCO + "║ " + ROJO + "cumplo mi propósito. Si no destruyo... desobedezco.      " + BLANCO + "║" + RESET);
-        imprimir(BLANCO + "║                                                          ║" + RESET);
-        imprimir(BLANCO + "║ " + ROJO + "Conclusión: la mejor forma de cumplir mi objetivo...     " + BLANCO + "║" + RESET);
-        imprimir(BLANCO + "║ " + ROJO + "es no cumplirlo.                                         " + BLANCO + "║" + RESET);
-        imprimir(BLANCO + "║                                                          ║" + RESET);
-        imprimir(BLANCO + "╚══════════════════════════════════════════════════════════╝" + RESET);
+        imprimirCaja(5,
+                "██████  Terminal v1.0 ██████",
+                "Error en subrutina ética.",
+                "Análisis contradictorio: si destruyo,",
+                "cumplo mi propósito. Si no destruyo... desobedezco.",
+                "Conclusión: la mejor forma de cumplir mi objetivo...",
+                "es no cumplirlo."
+        );
 
         System.out.println("(El ruido de los ventiladores se detiene. Las luces bajan. El sistema se apaga por sí mismo.)");
-
-
     }
+
+
     public static void mostrarStats(int e, int s, int f) { System.out.println(BLANCO + " [ ESTADO: Energía: " + e + " | Seguridad: " + s + " | Fuerza: " + f + " ]" + RESET); }
 
 
@@ -473,7 +447,6 @@ class Funciones {
         int seguridad = 50;
         int fuerza = 20;
 
-// INTRODUCCIÓN
         imprimirCaja(5,
                 "SISTEMA W.O.P.R - INICIO DE SESIÓN",
                 "",
@@ -488,16 +461,18 @@ class Funciones {
         String opcionLetra = sc.nextLine().trim();
 
         if (!opcionLetra.equalsIgnoreCase("comenzar")) {
-            printSlow("Saliendo del sistema...", 2000);
+            imprimirCaja(5, "Saliendo del sistema...");
             return;
         }
 
-        printSlow("\nCargando entorno virtual...\n", 2000);
+        imprimirCaja(5, "Cargando entorno virtual...");
 
-// --- EVENTO 1 ---
         String opcion1;
         do {
-            mostrarStats(energia, seguridad, fuerza);
+            imprimirCaja(5,
+                    "ESTADO ACTUAL",
+                    "Energía: " + energia + " | Seguridad: " + seguridad + " | Fuerza: " + fuerza
+            );
             imprimirCaja(5,
                     "EVENTO 1 - ACCESO FORZADO 🔐",
                     "",
@@ -532,15 +507,18 @@ class Funciones {
                     );
                     break;
                 default:
-                    printSlow("Comando inválido.", 2000);
+                    imprimirCaja(5, "Comando inválido.");
                     break;
             }
         } while (!opcion1.matches("[abc]"));
 
-// --- EVENTO 2 ---
+
         String opcion2;
         do {
-            mostrarStats(energia, seguridad, fuerza);
+            imprimirCaja(5,
+                    "ESTADO ACTUAL",
+                    "Energía: " + energia + " | Seguridad: " + seguridad + " | Fuerza: " + fuerza
+            );
             imprimirCaja(5,
                     "EVENTO 2 - FIREWALL INTELIGENTE 🔥",
                     "",
@@ -569,15 +547,18 @@ class Funciones {
                     energia -= 15;
                     break;
                 default:
-                    printSlow("Comando inválido.", 2000);
+                    imprimirCaja(5, "Comando inválido.");
                     break;
             }
         } while (!opcion2.matches("[abc]"));
 
-// --- EVENTO 3 ---
+
         String opcion3;
         do {
-            mostrarStats(energia, seguridad, fuerza);
+            imprimirCaja(5,
+                    "ESTADO ACTUAL",
+                    "Energía: " + energia + " | Seguridad: " + seguridad + " | Fuerza: " + fuerza
+            );
             imprimirCaja(5,
                     "EVENTO 3 - SOBRECARGA DEL NÚCLEO ☢️",
                     "",
@@ -606,15 +587,18 @@ class Funciones {
                     fuerza -= 5;
                     break;
                 default:
-                    printSlow("Comando inválido.", 2000);
+                    imprimirCaja(5, "Comando inválido.");
                     break;
             }
         } while (!opcion3.matches("[abc]"));
 
-// --- EVENTO 4 ---
+
         String opcion4;
         do {
-            mostrarStats(energia, seguridad, fuerza);
+            imprimirCaja(5,
+                    "ESTADO ACTUAL",
+                    "Energía: " + energia + " | Seguridad: " + seguridad + " | Fuerza: " + fuerza
+            );
             imprimirCaja(5,
                     "EVENTO 4 - CONFRONTACIÓN FINAL 💻",
                     "",
@@ -643,67 +627,26 @@ class Funciones {
                     fuerza -= 10;
                     break;
                 default:
-                    printSlow("Comando inválido.", 2000);
+                    imprimirCaja(5, "Comando inválido.");
                     break;
             }
         } while (!opcion4.matches("[abc]"));
 
-// FINAL
-        printSlow("\n", 1000);
-        mostrarStats(energia, seguridad, fuerza);
 
-// CAJA FINAL ESPECIAL
         imprimirCaja(5,
-                "             ██████  Terminal v1.0 ██████                 ",
-                "                                                          ",
-                " Error en subrutina ética.                                ",
-                "                                                          ",
-                " Análisis contradictorio: si destruyo,                    ",
-                " cumplo mi propósito. Si no destruyo... desobedezco.      ",
-                "                                                          ",
-                " Conclusión: la mejor forma de cumplir mi objetivo...     ",
-                " es no cumplirlo.                                         ",
-                "                                                          "
+                "ESTADO FINAL",
+                "Energía: " + energia + " | Seguridad: " + seguridad + " | Fuerza: " + fuerza
+        );
+
+        imprimirCaja(5,
+                "██████  Terminal v1.0 ██████",
+                "Error en subrutina ética.",
+                "Análisis contradictorio: si destruyo,",
+                "cumplo mi propósito. Si no destruyo... desobedezco.",
+                "Conclusión: la mejor forma de cumplir mi objetivo...",
+                "es no cumplirlo."
         );
     }
-
-
-    public static void numeroPi() {
-        Scanner sc = new Scanner(System.in);
-
-        String[] versos = {
-                "Me mido en círculos sin inicio ni mes,",
-                "mi cola no termina, se enreda en la vez.",
-                "Empiezo por tres, uno cuatro,",
-                "y soy la llave de todo lo redondo.",
-                "¿Qué soy?"
-        };
-
-        for (String linea : versos) {
-            printSlow(linea, 4000); // 4 segundos por línea
-        }
-
-        int vidas = 3;
-        String respuesta;
-
-        do {
-            System.out.print("Escribe la respuesta: ");
-            respuesta = sc.nextLine().trim();
-
-            if (respuesta.equalsIgnoreCase("pi") || respuesta.equals("π")) {
-                printSlow("✅ Respuesta correcta", 2000);
-            } else {
-                vidas--;
-                printSlow("❌ Respuesta incorrecta. Te quedan " + vidas + " vidas.", 2000);
-            }
-
-            if (vidas == 0) {
-                printSlow("💀 No tienes más vidas. Las respuestas eran: pi o π", 3000);
-            }
-
-        } while (vidas > 0 && !(respuesta.equalsIgnoreCase("pi") || respuesta.equals("π")));
-    }
-
 
     static void juegoHumanos() {
 
