@@ -6,14 +6,9 @@ public class Main {
 
     public static void main(String[] args) {
 
-  // Al poner numeros se vuelve a repetir y no sale ningun mensaje diciendo que no seas novato e introduce si o no
-      Funciones.introduccion();
+     boolean resultadoIntroduccion = Funciones.introduccion();
 
-
-
-//        Funciones.numeroPi();
-//
-//        Funciones.imprimirHistoria();
+      Funciones.imprimirHistoria(resultadoIntroduccion);
 //
 //        Funciones.Porcentajes(sc);
 //

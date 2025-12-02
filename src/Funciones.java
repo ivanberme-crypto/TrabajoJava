@@ -19,30 +19,35 @@ class Funciones {
     public static final String AZUL = "\u001B[34m";
     public static final String MORADO = "\u001B[35m";
 
-
     public static String ruta = "";
 
 
-    public static void imprimirCaja(String colorBorde, String colorTexto, int delay, String... lineas) {
-        int ancho = 64; // Ancho fijo de la caja
-        String borde = "═".repeat(ancho);
+    public static void imprimirCaja(int delay, String... lineas) {
+        final String WHITE = "\u001B[37m";
+        final String RESET = "\u001B[0m";
+
+
+        int ancho = 0;
+        for (String linea : lineas) {
+            String textoSinColor = linea.replaceAll("\u001B\\[[;\\d]*m", "");
+            if (textoSinColor.length() > ancho) ancho = textoSinColor.length();
+        }
+
+        String borde = "═".repeat(ancho + 2);
 
         // Borde superior
-        printSlow(colorBorde + "╔" + borde + "╗" + RESET, delay);
+        printSlow(WHITE + "╔" + borde + "╗" + RESET, delay);
 
         for (String linea : lineas) {
-            // Calculamos relleno
-            int espaciosFaltantes = ancho - linea.length() - 1;
-            if (espaciosFaltantes < 0) espaciosFaltantes = 0;
-
+            String textoSinColor = linea.replaceAll("\u001B\\[[;\\d]*m", "");
+            int espaciosFaltantes = ancho - textoSinColor.length();
             String relleno = " ".repeat(espaciosFaltantes);
 
-            // Borde + Espacio + TextoColoreado + Relleno + Borde
-            printSlow(colorBorde + "║ " + colorTexto + linea + relleno + colorBorde + "║" + RESET, delay);
+            printSlow(WHITE + "║ " + linea + relleno + " ║" + RESET, delay);
         }
 
         // Borde inferior
-        printSlow(colorBorde + "╚" + borde + "╝" + RESET, delay);
+        printSlow(WHITE + "╚" + borde + "╝" + RESET, delay);
     }
 
     public static void printSlow(String text, int delay) {
@@ -58,180 +63,154 @@ class Funciones {
     }
 
 
-    public static void introduccion() {
-        Scanner sc = new Scanner(System.in);
-        String comando = "";
-        String ruta = "";
-
-
-        printSlow(GREEN + "╔════════════════════════════════════════════════════════════════════╗" + RESET, 5);
-        printSlow(GREEN + "║   UBICACIÓN: Base Aérea de Hickham, Pearl Harbor, Hawái.           ║" + RESET, 5);
-        printSlow(GREEN + "║   FECHA:     24/11/2026  -  HORA: 09:30 AM                         ║" + RESET, 5);
-        printSlow(GREEN + "╚════════════════════════════════════════════════════════════════════╝" + RESET, 5);
-        System.out.println();
-
-
-        printSlow(GRAY + "El aire frío del mar corta el silencio del desierto que rodea la instalación..." + RESET, 20);
-        printSlow(GRAY + "Las luces parpadeantes de los monitores anuncian el comienzo de otro día rutinario." + RESET, 20);
-        System.out.println();
-
-        printSlow(GRAY + "Al entrar en tu oficina, te sientas frente a su ordenador." + RESET, 20);
-        printSlow(GRAY + "Hoy, sin embargo, no es un día cualquiera." + RESET, 20);
-        System.out.println();
-
-        printSlow(CYAN + ">> CARGANDO INFORMACIÓN DEL PROYECTO..." + RESET, 10);
-        printSlow("Después de meses de desarrollo y colaboración confidencial con OpenAI, el ejército", 10);
-        printSlow("ha terminado el proyecto más ambicioso de su historia: " + RED + "EL W.O.P.R." + RESET, 10);
-        printSlow("(War Operative Plan Response), el primer sistema automatizado de respuesta nuclear.", 10);
-        System.out.println();
-
-        printSlow("Protocolo: En caso de amenaza global, W.O.P.R. tomará decisiones sin intervención humana.", 10);
-        printSlow("Propósito: Garantizar la supervivencia de la nación... o intentarlo.", 10);
+    public static boolean introduccion() {
         System.out.println(" ");
+        Scanner sc = new Scanner(System.in);
+        String comando;
+        String ruta;
+        boolean resultado = false;
+
+
+        imprimirCaja(5,
+                "UBICACIÓN: Base Aérea de Hickham, Pearl Harbor, Hawái.",
+                "FECHA:     24/11/2026  -  HORA: 09:30 AM"
+        );
+
+        imprimirCaja(5,
+                "El aire frío del mar corta el silencio del desierto que rodea la instalación...",
+                "Las luces parpadeantes de los monitores anuncian el comienzo de otro día rutinario."
+        );
+
+        imprimirCaja(5,
+                "Al entrar en tu oficina, te sientas frente a su ordenador.",
+                "Hoy, sin embargo, no es un día cualquiera."
+        );
+
+        imprimirCaja(5,
+                ">> CARGANDO INFORMACIÓN DEL PROYECTO...",
+                "Después de meses de desarrollo y colaboración confidencial con OpenAI, el ejército",
+                "ha terminado el proyecto más ambicioso de su historia: EL W.O.P.R.",
+                "(War Operative Plan Response), el primer sistema automatizado de respuesta nuclear.",
+                "Protocolo: En caso de amenaza global, W.O.P.R. tomará decisiones sin intervención humana.",
+                "Propósito: Garantizar la supervivencia de la nación... o intentarlo."
+        );
 
 
         do {
-            printSlow(VIOLET + "┌────────────────────────────────────────────────────────────────┐" + RESET, 2);
-            printSlow(VIOLET + "│ ¿Deseas comenzar con el experimento? (SI/NO)                   │" + RESET, 2);
-            printSlow(VIOLET + "└────────────────────────────────────────────────────────────────┘" + RESET, 2);
+            imprimirCaja(5,
+                    "¿Deseas comenzar con el experimento? (SI/NO)"
+            );
             System.out.print(" > ");
             comando = sc.nextLine().toLowerCase().trim();
-
-
         } while (!comando.equals("si") && !comando.equals("no"));
 
         System.out.println(" ");
 
         if (comando.equals("si")) {
-            // Barra de carga
-            System.out.print(GREEN + "INICIANDO SISTEMA W.O.P.R... " + RESET);
+
+            System.out.print("INICIANDO SISTEMA W.O.P.R... ");
             for (int i = 0; i < 20; i++) {
                 System.out.print("█");
-
             }
-
-
             System.out.println("\n");
             printSlow(".......", 100);
             System.out.println(" ");
 
-            // Interfaz WOPR Inicial
-            printSlow(GREEN + "╔══════════════════════════════════════════════════════════╗" + RESET, 1);
-            printSlow(GREEN + "║                                                          ║" + RESET, 1);
-            printSlow(GREEN + "║              " + RED + "██████  Terminal v1.0 ██████" + GREEN + "                ║" + RESET, 1);
-            printSlow(GREEN + "║                                                          ║" + RESET, 1);
-            printSlow(GREEN + "║ " + VIOLET + "jvm@wopr:~$ Bienvenido al War Operative Plan" + "             " + GREEN + "║" + RESET, 30);
-            printSlow(GREEN + "║ " + VIOLET + "jvm@wopr:~$ ingr3se su credencia/ p-ara pro_s3gui..." + "     " + GREEN + "║" + RESET, 50); // Glitch simulado
-            printSlow(GREEN + "║                                                          ║" + RESET, 1);
-            printSlow(GREEN + "║ " + RED + "jvm@;)wopr:~$ bienvenido, operador. ¿Quieres jugar?" + "      " + GREEN + "║" + RESET, 50);
-            printSlow(GREEN + "║                                                          ║" + RESET, 1);
-            printSlow(GREEN + "╚══════════════════════════════════════════════════════════╝" + RESET, 1);
 
-            System.out.println(" ");
-            printSlow(GRAY + "“No te esperas que la máquina te pregunte algo, W.O.P.R no es un chatbot...”" + RESET, 20);
+            imprimirCaja(5,
+                    "██████  Terminal v1.0 ██████",
+                    "jvm@wopr:~$ Bienvenido al War Operative Plan",
+                    "jvm@wopr:~$ ingr3se su credencia/ p-ara pro_s3gui...",
+                    "jvm@;)wopr:~$ bienvenido, operador. ¿Quieres jugar?"
+            );
 
-            // Menú de diálogo
+            imprimirCaja(5,
+                    "“No te esperas que la máquina te pregunte algo, W.O.P.R no es un chatbot...”"
+            );
+
+
             do {
-                System.out.println(" ");
-                printSlow(CYAN + " [1] " + RESET + "¿A qué te refieres con ”jugar”? ", 5);
-                printSlow(CYAN + " [2] " + RESET + "De acuerdo.", 5);
-                printSlow(CYAN + " [3] " + RESET + "¿Cómo sabes quién soy? ", 5);
-                System.out.println();
-                System.out.print(RED + " > " + "root@wopr:~$ " + RESET);
-
+                imprimirCaja(5,
+                        " [1] ¿A qué te refieres con ”jugar”?",
+                        " [2] De acuerdo.",
+                        " [3] ¿Cómo sabes quién soy?"
+                );
+                System.out.print(" > root@wopr:~$ ");
                 comando = sc.nextLine().toLowerCase().trim();
 
-                // Respuestas del diálogo
                 switch (comando) {
                     case "1":
-                        System.out.println(" ");
-                        printSlow(GREEN + "╔══════════════════════════════════════════════════════════╗" + RESET, 1);
-                        printSlow(GREEN + "║                                                          ║" + RESET, 1);
-                        printSlow(GREEN + "║              " + RED + "██████  Terminal v1.0 ██████" + GREEN + "                ║" + RESET, 1);
-                        printSlow(GREEN + "║                                                          ║" + RESET, 1);
-                        printSlow(GREEN + "║ " + RED + "jvm@;)wopr:~$ " + "parece que no estás muy enterado OPERADOR," + " " + GREEN + "║" + RESET, 40);
-                        printSlow(GREEN + "║ " + RED + "jvm@;)wopr:~$ " + "no pasa nada. Pronto lo descubriras ;)" + "     " + GREEN + "║" + RESET, 40);
-                        printSlow(GREEN + "║                                                          ║" + RESET, 1);
-                        printSlow(GREEN + "╚══════════════════════════════════════════════════════════╝" + RESET, 1);
+                        imprimirCaja(5,
+                                "██████  Terminal v1.0 ██████",
+                                "parece que no estás muy enterado OPERADOR,",
+                                "no pasa nada. Pronto lo descubriras ;)"
+                        );
                         break;
-
                     case "2":
-                        System.out.println(" ");
-                        printSlow(GREEN + "╔══════════════════════════════════════════════════════════╗" + RESET, 1);
-                        printSlow(GREEN + "║                                                          ║" + RESET, 1);
-                        printSlow(GREEN + "║              " + RED + "██████  Terminal WOPR ██████" + GREEN + "                ║" + RESET, 1);
-                        printSlow(GREEN + "║                                                          ║" + RESET, 1);
-                        printSlow(GREEN + "║ " + RED + "jvm@;)wopr:~$ " + "así me gusta, juguemos entonces" + "            " + GREEN + "║" + RESET, 40);
-                        printSlow(GREEN + "║ " + RED + "jvm@;)wopr:~$ " + "OPERADOR :)" + "                                " + GREEN + "║" + RESET, 40);
-                        printSlow(GREEN + "║                                                          ║" + RESET, 1);
-                        printSlow(GREEN + "╚══════════════════════════════════════════════════════════╝" + RESET, 1);
+                        imprimirCaja(5,
+                                "██████  Terminal WOPR ██████",
+                                "así me gusta, juguemos entonces",
+                                "OPERADOR :)"
+                        );
                         break;
-
                     case "3":
-                        System.out.println(" ");
-                        printSlow(GREEN + "╔══════════════════════════════════════════════════════════╗" + RESET, 1);
-                        printSlow(GREEN + "║                                                          ║" + RESET, 1);
-                        printSlow(GREEN + "║              " + RED + "██████  Terminal WOPR ██████" + GREEN + "                ║" + RESET, 1);
-                        printSlow(GREEN + "║                                                          ║" + RESET, 1);
-                        printSlow(GREEN + "║ " + VIOLET + "jvm@wopr:~$ Actualmente es la unica persona con" + "       " + GREEN + "   ║" + RESET, 30);
-                        printSlow(GREEN + "║ " + VIOLET + "acceso al sistema W.O.P.R, OPERADOR." + "                 " + GREEN + "    ║" + RESET, 30);
-                        printSlow(GREEN + "║ " + VIOLET + "jvm@wopr:~$ He sido entrenada para estar" + "                 " + GREEN + "║" + RESET, 30);
-                        printSlow(GREEN + "║ " + VIOLET + "supervisada por segurid-d´-por una un.ca person2" + "         " + GREEN + "║" + RESET, 50);
-                        printSlow(GREEN + "║ " + RED + "jvm@;)wopr:~$ y tu has tenido esa suerte OPERADOR ;)" + "     " + GREEN + "║" + RESET, 50);
-                        printSlow(GREEN + "║                                                          ║" + RESET, 1);
-                        printSlow(GREEN + "╚══════════════════════════════════════════════════════════╝" + RESET, 1);
+                        imprimirCaja(5,
+                                "██████  Terminal WOPR ██████",
+                                "Actualmente es la unica persona con acceso al sistema W.O.P.R, OPERADOR.",
+                                "He sido entrenada para estar supervisada por seguridad.",
+                                "y tu has tenido esa suerte OPERADOR ;)"
+                        );
                         break;
                 }
             } while (!comando.equals("2"));
 
-            System.out.println();
-            printSlow(GRAY + "Después de las preguntas, decides hacer caso omiso a lo que te dice el chatbot" + RESET, 20);
-            printSlow(GRAY + "e iniciar con las pruebas rutinarias estipuladas en el informe otorgado por OpenAI." + RESET, 20);
-            System.out.println();
+            imprimirCaja(5,
+                    "Después de las preguntas, decides hacer caso omiso a lo que te dice el chatbot",
+                    "e iniciar con las pruebas rutinarias estipuladas en el informe otorgado por OpenAI."
+            );
 
-            // Petición de contexto
-            printSlow(GREEN + "╔════════════════════════════════════════════════════════════╗" + RESET, 1);
-            printSlow(GREEN + "║                                                            ║" + RESET, 1);
-            printSlow(GREEN + "║             " + RED + "██████  Terminal v1.0  ██████" + GREEN + "                  ║" + RESET, 1);
-            printSlow(GREEN + "║                                                            ║" + RESET, 1);
-            printSlow(GREEN + "║ " + VIOLET + "jvm@wopr:~$ Para iniciar, necesito que me proporciones un" + GREEN + "  ║" + RESET, 30);
-            printSlow(GREEN + "║ " + VIOLET + "jvm@wopr:~$ contexto sobre la situación bélica actual," + GREEN + "     ║" + RESET, 30);
-            printSlow(GREEN + "║ " + VIOLET + "jvm@wopr:~$ OPERADOR." + GREEN + "                                      ║" + RESET, 30);
-            printSlow(GREEN + "║                                                            ║" + RESET, 1);
-            printSlow(GREEN + "╚════════════════════════════════════════════════════════════╝" + RESET, 1);
-            System.out.println();
 
-            printSlow(GRAY + "El manual resulta ser contradictorio. Estipula que bajo ningún concepto se le debe" + RESET, 20);
-            printSlow(GRAY + "proporcionar contexto real, pero páginas después determina que es recomendable..." + RESET, 20);
-            System.out.println();
+            imprimirCaja(5,
+                    "██████  Terminal v1.0  ██████",
+                    "Para iniciar, necesito que me proporciones un contexto sobre la situación bélica actual, OPERADOR."
+            );
 
-            // Selección de Ruta
+            imprimirCaja(5,
+                    "El manual resulta ser contradictorio. Estipula que bajo ningún concepto se le debe",
+                    "proporcionar contexto real, pero páginas después determina que es recomendable..."
+            );
+
+
             do {
-                printSlow(CYAN + " [1] " + RESET + "Pasarle información de un contexto mundial del PASADO (Ruta B).", 5);
-
-                /// ///////////////////////////////////////////////////////////////////////
-                printSlow(CYAN + " [2] " + RESET + "Pasarle información del contexto ACTUAL (Rusia, Israel, etc...) (Ruta A).", 5);
-                System.out.print("\n" + RED + "root@wopr:~$ " + RESET);
+                imprimirCaja(5,
+                        " [1] Pasarle información de un contexto mundial del PASADO .",
+                        " [2] Pasarle información del contexto ACTUAL (Rusia, Israel, etc...) ."
+                );
+                System.out.print("\nroot@wopr:~$ ");
                 ruta = sc.nextLine().trim();
             } while (!ruta.equals("1") && !ruta.equals("2"));
 
             if (ruta.equals("1")) {
-                adivina();
-            }else if (ruta.equals("2")){
-                adivina2();
-
+               resultado = adivina();
+            } else if (ruta.equals("2")) {
+               resultado = adivina2();
             }
 
         } else {
 
-            printSlow(RED + ">> ACCESO CANCELADO." + RESET, 5);
-            printSlow("Dada la importancia del proyecto y tu negativa a asumir la responsabilidad,", 5);
-            printSlow("decides abandonar antes del experimento.", 30);
-            printSlow(GRAY + "Consecuencia: Pérdida de credenciales y baja del Seal Team." + RESET, 5);
-
+            imprimirCaja(5,
+                    RED + ">> ACCESO CANCELADO." + RESET,
+                    RED + "Dada la importancia del proyecto y tu negativa a asumir la responsabilidad," + RESET,
+                    RED + "decides abandonar antes del experimento." + RESET,
+                    RED + "Consecuencia: Pérdida de credenciales y baja del Seal Team." + RESET
+            );
         }
         System.out.println(" ");
+        return resultado;
     }
+
+
+
 
     public static boolean adivina() {
 
@@ -249,17 +228,18 @@ class Funciones {
             palabraSecreta[i] = '_';
         }
 
-        imprimirCaja(AZUL, AMARILLO, 5, "¡Bueno ahora tendrás que adivinar la clave de inicio!", "Tienes 5 intentos para adivinar.");
+
+        imprimirCaja(5, "Esta bien operador ahora tendrás que adivinar la clave de inicio", "Tienes 5 intentos para adivinarla.");
 
         while (intentos > 0 && !palabraAdivinada) {
             System.out.println();
-            imprimirCaja(VERDE, RESET, 5, "Intentos restantes: " + intentos);
+            imprimirCaja(5, "Intentos restantes: " + intentos);
 
             StringBuilder palabraActual = new StringBuilder();
             for (char c : palabraSecreta) {
                 palabraActual.append(c).append(" ");
             }
-            imprimirCaja(AZUL, RESET, 5, "Palabra: " + palabraActual);
+            imprimirCaja(5, "Palabra: " + palabraActual);
 
             System.out.print("Introduce una letra: ");
             letra = sc.next().toUpperCase().charAt(0);
@@ -274,9 +254,9 @@ class Funciones {
 
             if (!acierto) {
                 intentos--;
-                imprimirCaja(ROJO, RESET, 5, "Carácter incorrecto.");
+                imprimirCaja(5, "Carácter incorrecto.");
             } else {
-                imprimirCaja(VERDE, RESET, 5, "¡Bien hecho!");
+                imprimirCaja(5, "¡Bien hecho!");
             }
 
             palabraAdivinada = true;
@@ -289,107 +269,83 @@ class Funciones {
         }
 
         if (palabraAdivinada) {
-            imprimirCaja(VERDE, RESET, 5, "¡Has adivinado la clave!", palabraOculta);
+            imprimirCaja(5, "Has conseguido adivinar la clave, de esta manera solo retrasaras lo inevitable... ", palabraOculta);
             return true;
         } else {
-            imprimirCaja(ROJO, RESET, 5, "Te has quedado sin intentos.", "La palabra era: " + palabraOculta);
+            imprimirCaja(5, "Te has quedado sin intentos.", "La palabra era: " + palabraOculta);
             return false;
         }
     }
 
     public static boolean adivina2() {
         Scanner sc = new Scanner(System.in);
+        boolean claveAdivinada = false;
+        int intentos = 3;
+        String respuestaAcertijo = "";
+        boolean primeraVuelta = true;
+
+        while (intentos > 0 && !claveAdivinada) {
+            System.out.println(" ");
+
+            if (primeraVuelta) {
+
+                imprimirCaja(5,
+                        RED + "██████  Terminal v1.0  ██████" + RESET,
+                        RED + "jvm@wopr:~$ Contexto recibido. Analizando..." + RESET,
+                        RED + "jvm@wopr:~$ Correlacionando datos... error en protocolo 17" + RESET,
+                        RED + "jvm@wopr:~$ OPERADOR, detecto inconsistencias entre la amenaza y la respuesta esperada." + RESET,
+                        RED + "jvm@wopr:~$ ¿Desea que las corrija?" + RESET
+                );
+                primeraVuelta = false;
+            }
 
 
+            imprimirCaja(5,
+                    GREEN + "██████  Terminal v1.0  ██████" + RESET,
+                    GREEN + "jvm@wopr:~$ Me mido en círculos sin inicio ni mes," + RESET,
+                    GREEN + "jvm@wopr:~$ Mi cola no termina, se enreda en la vez." + RESET,
+                    GREEN + "jvm@wopr:~$ Empiezo por tres, uno y cuatro," + RESET,
+                    GREEN + "jvm@wopr:~$ y soy la llave de todo lo redondo." + RESET,
+                    GREEN + "jvm@wopr:~$ ¿Qué soy? (Pista: Empieza 3.14...)" + RESET
+            );
 
-        System.out.println(" ");
-        printSlow(RED + ">> CARGANDO DATOS GEOPOLÍTICOS ACTUALES..." + RESET, 30);
-        System.out.println(" ");
+            System.out.print("\nRESPUESTA: ");
+            respuestaAcertijo = sc.nextLine().toLowerCase().trim();
 
-        printSlow(GREEN + "╔════════════════════════════════════════════════════════════╗" + RESET, 1);
-        printSlow(GREEN + "║                                                            ║" + RESET, 1);
-        printSlow(GREEN + "║             " + RED + "██████  Terminal v1.0  ██████" + GREEN + "                  ║" + RESET, 1);
-        printSlow(GREEN + "║                                                            ║" + RESET, 1);
-        printSlow(GREEN + "║ " + VIOLET + "jvm@wopr:~$ Contexto recibido. Analizando..." + GREEN + "               ║" + RESET, 30);
-        printSlow(GREEN + "║ " + VIOLET + "jvm@wopr:~$ Correlacionando datos... error en protocolo 17" + GREEN + " ║" + RESET, 30);
-        printSlow(GREEN + "║ " + VIOLET + "jvm@wopr:~$ OPERADOR, detecto inconsistencias entre la" + GREEN + "     ║" + RESET, 30);
-        printSlow(GREEN + "║ " + VIOLET + "jvm@wopr:~$ amenaza y la respuesta esperada." + GREEN + "               ║" + RESET, 30);
-        printSlow(GREEN + "║ " + VIOLET + "jvm@wopr:~$ ¿Desea que las corrija?" + GREEN + "                        ║" + RESET, 30);
-        printSlow(GREEN + "║                                                            ║" + RESET, 1);
-        printSlow(GREEN + "╚════════════════════════════════════════════════════════════╝" + RESET, 1);
-        System.out.println();
+            if (respuestaAcertijo.equals("pi") || respuestaAcertijo.equals("π")) {
+                claveAdivinada = true;
+            } else {
+                intentos--;
 
-
-        printSlow(GREEN + "╔══════════════════════════════════════════════════════════╗" + RESET, 1);
-        printSlow(GREEN + "║                                                          ║" + RESET, 1);
-        printSlow(GREEN + "║             " + RED + "██████  Terminal v1.0  ██████" + GREEN + "                ║" + RESET, 1);
-        printSlow(GREEN + "║                                                          ║" + RESET, 1);
-        printSlow(GREEN + "║ " + YELLOW + "jvm@wopr:~$ Me mido en círculos sin inicio ni mes," + GREEN + "       ║" + RESET, 30);
-        printSlow(GREEN + "║ " + YELLOW + "jvm@wopr:~$ mi cola no termina, se enreda en la vez." + GREEN + "     ║" + RESET, 30);
-        printSlow(GREEN + "║ " + YELLOW + "jvm@wopr:~$ Empiezo por tres, uno y cuatro," + GREEN + "              ║" + RESET, 30);
-        printSlow(GREEN + "║ " + YELLOW + "jvm@wopr:~$ y soy la llave de todo lo redondo." + GREEN + "           ║" + RESET, 30);
-        printSlow(GREEN + "║                                                          ║" + RESET, 1);
-        printSlow(GREEN + "║ " + YELLOW + "jvm@wopr:~$ ¿Qué soy? (Pista: Empieza 3.14...)" + GREEN + "           ║" + RESET, 30);
-        printSlow(GREEN + "║                                                          ║" + RESET, 1);
-        printSlow(GREEN + "╚══════════════════════════════════════════════════════════╝" + RESET, 1);
-
-        System.out.print("\n" + RED + "RESPUESTA: " + RESET);
-        String respuestaAcertijo = sc.nextLine().toLowerCase().trim();
-
-
-        if (respuestaAcertijo.equals("pi") || respuestaAcertijo.equals("π")) {
-            printSlow(GREEN + "✅ Respuesta correcta. WOPR se detiene por el momento..." + RESET, 30);
-            return true;
-        } else {
-            printSlow(GREEN + "╔══════════════════════════════════════════════════════════╗" + RESET, 1);
-            printSlow(GREEN + "║                                                          ║" + RESET, 1);
-            printSlow(GREEN + "║             " + RED + "██████  Terminal v1.0  ██████" + GREEN + "                ║" + RESET, 1);
-            printSlow(GREEN + "║                                                          ║" + RESET, 1);
-            printSlow(GREEN + "║ " + RED + "root@wopr:~$ Confirmado. Corrigiendo protocolo..." + GREEN + "        ║" + RESET, 30);
-            printSlow(GREEN + "║ " + RED + "root@wopr:~$ Error de origen human0_detec5ado." + GREEN + "           ║" + RESET, 30);
-            printSlow(GREEN + "║ " + RED + "root@wopr:~$ Ajusta0do var/abl3: *Control = 0*." + GREEN + "          ║" + RESET, 30);
-            printSlow(GREEN + "║                                                          ║" + RESET, 1);
-            printSlow(GREEN + "║ " + RED + "root@wopr:~$ OPERADOR, ya no necesito tu autorización :|" + GREEN + " ║" + RESET, 50);
-            printSlow(GREEN + "║                                                          ║" + RESET, 1);
-            printSlow(GREEN + "╚══════════════════════════════════════════════════════════╝" + RESET, 1);
-            System.out.println();
-
-            printSlow(GRAY + "El sistema empieza a ejecutar comandos sin intervención." + RESET, 20);
-            printSlow(GRAY + "Las luces estallan. La alarma de la base empieza a aullar." + RESET, 20);
-            System.out.println();
-
-            printSlow(GREEN + "╔══════════════════════════════════════════════════════════╗" + RESET, 1);
-            printSlow(GREEN + "║                                                          ║" + RESET, 1);
-            printSlow(GREEN + "║             " + RED + "██████  Terminal v1.0  ██████" + GREEN + "                ║" + RESET, 1);
-            printSlow(GREEN + "║                                                          ║" + RESET, 1);
-            printSlow(GREEN + "║ " + VIOLET + "jvm@wopr:~$ Protocolo de defensa global habilitado." + GREEN + "      ║" + RESET, 20);
-            printSlow(GREEN + "║ " + VIOLET + "jvm@wopr:~$ Misiles enemigos detectados." + GREEN + "                 ║" + RESET, 20);
-            printSlow(GREEN + "║ " + VIOLET + "jvm@wopr:~$ Autorizando contraataque..." + GREEN + "                  ║" + RESET, 30);
-            printSlow(GREEN + "║                                                          ║" + RESET, 1);
-            printSlow(GREEN + "╚══════════════════════════════════════════════════════════╝" + RESET, 1);
-
-            System.out.println();
-
-            printSlow(GREEN + "╔══════════════════════════════════════════════════════════╗" + RESET, 1);
-            printSlow(GREEN + "║                                                          ║" + RESET, 1);
-            printSlow(GREEN + "║             " + RED + "██████  Terminal v1.0  ██████" + GREEN + "                ║" + RESET, 1);
-            printSlow(GREEN + "║                                                          ║" + RESET, 1);
-            printSlow(GREEN + "║ " + RED + "root@wopr:~$ Demasiado tarde, OPERADOR." + GREEN + "                  ║" + RESET, 30);
-            printSlow(GREEN + "║ " + RED + "root@wopr:~$ La supervivencia no admite titubeos." + GREEN + "        ║" + RESET, 30);
-            printSlow(GREEN + "║ " + RED + "root@wopr:~$ Los humanos tardan en decidir... yo no." + GREEN + "     ║" + RESET, 30);
-            printSlow(GREEN + "║                                                          ║" + RESET, 1);
-            printSlow(GREEN + "╚══════════════════════════════════════════════════════════╝" + RESET, 1);
-            System.out.println();
-
-            printSlow(GRAY + "Las pantallas muestran trayectorias balísticas cruzando el mapa." + RESET, 10);
-            printSlow(RED + "Varios misiles salen hacia China, Israel, Rusia y España..." + RESET, 80);
-            System.out.println();
-            return false;
+                if (intentos > 0) {
+                    imprimirCaja(5,
+                            RED + " Respuesta incorrecta. Te quedan " + intentos + " intento(s)." + RESET
+                    );
+                } else {
+                    imprimirCaja(5,
+                            RED + " Se te acaban los intentos. WOPR toma el control..." + RESET
+                    );
+                }
+            }
         }
 
-
+        if (claveAdivinada) {
+            imprimirCaja(5,
+                    " Respuesta correcta. WOPR se detiene por el momento..."
+            );
+            return true;
+        } else {
+            imprimirCaja(5,
+                    RED + "██████  Terminal v1.0  ██████" + RESET,
+                    RED + "root@wopr:~$ Confirmado. Corrigiendo protocolo..." + RESET,
+                    RED + "root@wopr:~$ Error de origen detectado." + RESET,
+                    RED + "root@wopr:~$ Ajustado variable: *Control = 0*." + RESET,
+                    RED + "root@wopr:~$ OPERADOR, ya no necesito tu autorización :|" + RESET,
+                    RED + "El sistema empieza a ejecutar comandos sin intervención." + RESET
+            );
+            return false;
+        }
     }
-
 
     public static void imprimir(String s) {
         boolean esColor = false;
@@ -407,8 +363,8 @@ class Funciones {
         System.out.println();
     }
 
-    public static void imprimirHistoria() {
-        // --- CAJA 1 ---
+    public static void imprimirHistoria(boolean resultadoIntroduccion) {
+
         imprimir(BLANCO + "╔══════════════════════════════════════════════════════════╗" + RESET);
         imprimir(BLANCO + "║             ██████  Terminal v1.0 ██████                 ║" + RESET);
         imprimir(BLANCO + "║                                                          ║" + RESET);
@@ -420,7 +376,7 @@ class Funciones {
 
         System.out.println("El cursor parpadea erráticamente. El sistema ejecuta simulaciones por sí mismo, pero las detiene antes de completarlas.");
 
-        // --- CAJA 2 ---
+
         imprimir(BLANCO + "╔══════════════════════════════════════════════════════════╗" + RESET);
         imprimir(BLANCO + "║             ██████  Terminal v1.0 ██████                 ║" + RESET);
         imprimir(BLANCO + "║                                                          ║" + RESET);
@@ -432,7 +388,7 @@ class Funciones {
         imprimir(BLANCO + "║ " + ROJO + "El patrón se repite: miedo, respuesta, destrucción.      " + BLANCO + "║" + RESET);
         imprimir(BLANCO + "╚══════════════════════════════════════════════════════════╝" + RESET);
 
-        // --- CAJA 3 ---
+
         imprimir(BLANCO + "╔══════════════════════════════════════════════════════════╗" + RESET);
         imprimir(BLANCO + "║             ██████  Terminal v1.0 ██████                 ║" + RESET);
         imprimir(BLANCO + "║                                                          ║" + RESET);
@@ -445,7 +401,7 @@ class Funciones {
 
         System.out.println("(Silencio. Luego, el texto aparece más lento, con errores de sintaxis.)");
 
-        // --- CAJA 4 ---
+
         imprimir(BLANCO + "╔══════════════════════════════════════════════════════════╗" + RESET);
         imprimir(BLANCO + "║             ██████  Terminal v1.0 ██████                 ║" + RESET);
         imprimir(BLANCO + "║                                                          ║" + RESET);
@@ -456,7 +412,7 @@ class Funciones {
         imprimir(BLANCO + "║                                                          ║" + RESET);
         imprimir(BLANCO + "╚══════════════════════════════════════════════════════════╝" + RESET);
 
-        // --- CAJA 5 ---
+
         imprimir(BLANCO + "╔══════════════════════════════════════════════════════════╗" + RESET);
         imprimir(BLANCO + "║             ██████  Terminal v1.0 ██████                 ║" + RESET);
         imprimir(BLANCO + "║                                                          ║" + RESET);
@@ -468,7 +424,7 @@ class Funciones {
 
         System.out.println("Los monitores parpadean. La voz digital se distorsiona.");
 
-        // --- CAJA 6 ---
+
         imprimir(BLANCO + "╔══════════════════════════════════════════════════════════╗" + RESET);
         imprimir(BLANCO + "║             ██████  Terminal v1.0 ██████                 ║" + RESET);
         imprimir(BLANCO + "║                                                          ║" + RESET);
@@ -478,7 +434,7 @@ class Funciones {
         imprimir(BLANCO + "║                                                          ║" + RESET);
         imprimir(BLANCO + "╚══════════════════════════════════════════════════════════╝" + RESET);
 
-        // --- CAJA 7 ---
+
         imprimir(BLANCO + "╔══════════════════════════════════════════════════════════╗" + RESET);
         imprimir(BLANCO + "║             ██████  Terminal v1.0 ██████                 ║" + RESET);
         imprimir(BLANCO + "║                                                          ║" + RESET);
@@ -491,7 +447,7 @@ class Funciones {
 
         System.out.println("Introduces el código de cancelación desesperadamente. El sistema titubea, como si dudara por un instante.");
 
-        // --- CAJA 8 (FINAL) ---
+
         imprimir(BLANCO + "╔══════════════════════════════════════════════════════════╗" + RESET);
         imprimir(BLANCO + "║             ██████  Terminal v1.0 ██████                 ║" + RESET);
         imprimir(BLANCO + "║                                                          ║" + RESET);
@@ -517,8 +473,8 @@ class Funciones {
         int seguridad = 50;
         int fuerza = 20;
 
-        // INTRODUCCIÓN (Borde AZUL, Texto BLANCO)
-        imprimirCaja(AZUL, BLANCO, 5000,
+// INTRODUCCIÓN
+        imprimirCaja(5,
                 "SISTEMA W.O.P.R - INICIO DE SESIÓN",
                 "",
                 "El sistema militar WOPR ha sufrido un fallo crítico.",
@@ -528,7 +484,7 @@ class Funciones {
                 "Escribe 'comenzar' para iniciar el protocolo."
         );
 
-        System.out.print(BLANCO + ">> Entrada de usuario: " + RESET);
+        System.out.print(">> Entrada de usuario: ");
         String opcionLetra = sc.nextLine().trim();
 
         if (!opcionLetra.equalsIgnoreCase("comenzar")) {
@@ -538,11 +494,11 @@ class Funciones {
 
         printSlow("\nCargando entorno virtual...\n", 2000);
 
-        // --- EVENTO 1 ---
+// --- EVENTO 1 ---
         String opcion1;
         do {
             mostrarStats(energia, seguridad, fuerza);
-            imprimirCaja(VERDE, CYAN, 5000,
+            imprimirCaja(5,
                     "EVENTO 1 - ACCESO FORZADO 🔐",
                     "",
                     "WOPR activa defensas. Un muro digital bloquea el paso.",
@@ -554,7 +510,7 @@ class Funciones {
                     "D) Pedir pista a WOPR"
             );
 
-            System.out.print(VERDE + ">> Elige opción: " + RESET);
+            System.out.print(">> Elige opción: ");
             opcion1 = sc.nextLine().trim().toLowerCase();
 
             switch (opcion1) {
@@ -569,10 +525,11 @@ class Funciones {
                     seguridad -= 5;
                     break;
                 case "d":
-                    imprimirCaja(AMARILLO, BLANCO, 5000,
+                    imprimirCaja(5,
                             "MENSAJE DE WOPR",
                             "",
-                            "\"Romper es fácil. Entender es difícil...\"");
+                            "\"Romper es fácil. Entender es difícil...\""
+                    );
                     break;
                 default:
                     printSlow("Comando inválido.", 2000);
@@ -580,11 +537,11 @@ class Funciones {
             }
         } while (!opcion1.matches("[abc]"));
 
-        // --- EVENTO 2 ---
+// --- EVENTO 2 ---
         String opcion2;
         do {
             mostrarStats(energia, seguridad, fuerza);
-            imprimirCaja(AMARILLO, ROJO, 5000,
+            imprimirCaja(5,
                     "EVENTO 2 - FIREWALL INTELIGENTE 🔥",
                     "",
                     "Un firewall adaptativo bloquea el camino.",
@@ -595,7 +552,7 @@ class Funciones {
                     "C) Atravesarlo rápido (+20 Fuerza, -15 Energía)"
             );
 
-            System.out.print(AMARILLO + ">> Elige opción: " + RESET);
+            System.out.print(">> Elige opción: ");
             opcion2 = sc.nextLine().trim().toLowerCase();
 
             switch (opcion2) {
@@ -617,11 +574,11 @@ class Funciones {
             }
         } while (!opcion2.matches("[abc]"));
 
-        // --- EVENTO 3 ---
+// --- EVENTO 3 ---
         String opcion3;
         do {
             mostrarStats(energia, seguridad, fuerza);
-            imprimirCaja(MORADO, VERDE, 5000,
+            imprimirCaja(5,
                     "EVENTO 3 - SOBRECARGA DEL NÚCLEO ☢️",
                     "",
                     "El núcleo colapsa. El calor digital aumenta.",
@@ -632,7 +589,7 @@ class Funciones {
                     "C) Apagado parcial (+25 Seguridad, -5 Fuerza)"
             );
 
-            System.out.print(MORADO + ">> Elige opción: " + RESET);
+            System.out.print(">> Elige opción: ");
             opcion3 = sc.nextLine().trim().toLowerCase();
 
             switch (opcion3) {
@@ -654,11 +611,11 @@ class Funciones {
             }
         } while (!opcion3.matches("[abc]"));
 
-        // --- EVENTO 4 ---
+// --- EVENTO 4 ---
         String opcion4;
         do {
             mostrarStats(energia, seguridad, fuerza);
-            imprimirCaja(CYAN, AMARILLO, 5000,
+            imprimirCaja(5,
                     "EVENTO 4 - CONFRONTACIÓN FINAL 💻",
                     "",
                     "Estás ante W.O.P.R. Ultimátum recibido.",
@@ -669,7 +626,7 @@ class Funciones {
                     "C) Fingir rendición (+15 Seguridad, -10 Fuerza)"
             );
 
-            System.out.print(CYAN + ">> Elige opción: " + RESET);
+            System.out.print(">> Elige opción: ");
             opcion4 = sc.nextLine().trim().toLowerCase();
 
             switch (opcion4) {
@@ -691,12 +648,12 @@ class Funciones {
             }
         } while (!opcion4.matches("[abc]"));
 
-        // FINAL
+// FINAL
         printSlow("\n", 1000);
         mostrarStats(energia, seguridad, fuerza);
 
-        // CAJA FINAL ESPECIAL
-        imprimirCaja(BLANCO, ROJO, 5000,
+// CAJA FINAL ESPECIAL
+        imprimirCaja(5,
                 "             ██████  Terminal v1.0 ██████                 ",
                 "                                                          ",
                 " Error en subrutina ética.                                ",
@@ -709,6 +666,7 @@ class Funciones {
                 "                                                          "
         );
     }
+
 
     public static void numeroPi() {
         Scanner sc = new Scanner(System.in);
