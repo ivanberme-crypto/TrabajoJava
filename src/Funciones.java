@@ -640,6 +640,7 @@ class Funciones {
         Scanner sc = new Scanner(System.in);
         String comando = "";
 
+        imprimirCaja(5, "Esta bien operador has conseguido ganar algo de tiempo...");
 
         System.out.println(" ");
         imprimirCaja(5, "El operador intenta apagar el sistema");

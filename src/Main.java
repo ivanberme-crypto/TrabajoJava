@@ -6,14 +6,32 @@ public class Main {
 
     public static void main(String[] args) {
 
-        boolean resultadoIntroduccion = Funciones.introduccion();
+        boolean seguirJugando = true;
 
-        Funciones.imprimirHistoria();
+        while (seguirJugando) {
 
-        boolean resultadoFinal = Funciones.Porcentajes(sc, resultadoIntroduccion);
+            boolean resultadoIntroduccion = Funciones.introduccion();
 
-        Funciones.imprimirFinal(resultadoFinal);
+            Funciones.imprimirHistoria();
+
+            boolean resultadoFinal = Funciones.Porcentajes(sc, resultadoIntroduccion);
+
+            Funciones.imprimirFinal(resultadoFinal);
 
 
+            if (!resultadoFinal) {
+                System.out.println("Has perdido. ¿Quieres volver a intentarlo? (s/n)");
+                String respuesta = sc.nextLine().trim().toLowerCase();
+
+                if (!respuesta.equals("si")) {
+                    seguirJugando = false;
+                }
+            } else {
+
+                seguirJugando = false;
+            }
+        }
+
+        System.out.println("¡Gracias por jugar!");
     }
 }
