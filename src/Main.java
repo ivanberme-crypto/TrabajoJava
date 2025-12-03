@@ -6,7 +6,6 @@ public class Main {
 
     public static void main(String[] args) {
 
-
         boolean seguirJugando = true;
 
         while (seguirJugando) {
@@ -19,20 +18,30 @@ public class Main {
 
             Funciones.imprimirFinal(resultadoFinal);
 
-
             if (!resultadoFinal) {
-                System.out.println("Has perdido. ¿Quieres volver a intentarlo? (si/no)");
-                String respuesta = sc.nextLine().trim().toLowerCase();
+                String respuesta = "";
 
-                if (!respuesta.equals("si")) {
+                while (true) {
+                    System.out.println("Has perdido. ¿Quieres volver a intentarlo? (si/no)");
+                    respuesta = sc.nextLine().trim().toLowerCase();
+
+                    if (respuesta.equals("si") || respuesta.equals("no")) {
+                        break;
+                    } else {
+                        System.out.println("Entrada no válida. Por favor, escribe 'si' o 'no'.");
+                    }
+                }
+
+                if (respuesta.equals("no")) {
                     seguirJugando = false;
                 }
+
             } else {
 
                 seguirJugando = false;
             }
         }
 
-        System.out.println("¡Gracias por jugar!");
+        System.out.println("¡Gracias por tu tiempo!");
     }
 }

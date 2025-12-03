@@ -1,28 +1,15 @@
 import java.util.Scanner;
-import java.util.Random;
+
 
 class Funciones {
 
     public static final String RESET = "\u001B[0m";
     public static final String RED = "\u001B[31m";
     public static final String GREEN = "\u001B[32m";
-    public static final String YELLOW = "\u001B[33m";
-    public static final String VIOLET = "\u001B[35m";
-    public static final String CYAN = "\u001B[36m";
-    public static final String GRAY = "\u001B[90m";
-    public static final String PINK = "\u001B[95m";
-    public static String ROJO = "\u001B[31m";
-    public static String BLANCO = "\u001B[37m";
-    public static String AMARILLO = "\u001B[33m";
-    public static final String NEGRO = "\u001B[30m";
-    public static final String VERDE = "\u001B[32m";
-    public static final String AZUL = "\u001B[34m";
-    public static final String MORADO = "\u001B[35m";
-
-    public static String ruta = "";
 
 
     public static void imprimirCaja(int delay, String... lineas) {
+
         final String WHITE = "\u001B[37m";
         final String RESET = "\u001B[0m";
 
@@ -51,6 +38,7 @@ class Funciones {
     }
 
     public static void printSlow(String text, int delay) {
+
         for (char c : text.toCharArray()) {
             System.out.print(c);
             try {
@@ -64,6 +52,7 @@ class Funciones {
 
 
     public static boolean introduccion() {
+
         System.out.println(" ");
         Scanner sc = new Scanner(System.in);
         String comando;
@@ -112,16 +101,17 @@ class Funciones {
             for (int i = 0; i < 20; i++) {
                 System.out.print("█");
             }
+
             System.out.println("\n");
-            printSlow(".......", 100);
+
             System.out.println(" ");
 
 
             imprimirCaja(5,
-                    "██████  Terminal v1.0 ██████",
-                    "jvm@wopr:~$ Bienvenido al War Operative Plan",
-                    "jvm@wopr:~$ ingr3se su credencia/ p-ara pro_s3gui...",
-                    "jvm@;)wopr:~$ bienvenido, operador. ¿Quieres jugar?"
+                    GREEN + "██████  Terminal v1.0 ██████" + RESET,
+                    GREEN + "jvm@wopr:~$ Bienvenido al War Operative Plan" + RESET,
+                    GREEN + "jvm@wopr:~$ ingr3se su credencia/ p-ara pro_s3gui..." + RESET,
+                    GREEN + "jvm@;)wopr:~$ bienvenido, operador. ¿Quieres jugar?" + RESET
             );
 
             imprimirCaja(5,
@@ -135,10 +125,12 @@ class Funciones {
                         " [2] De acuerdo.",
                         " [3] ¿Cómo sabes quién soy?"
                 );
+
                 System.out.print(" > root@wopr:~$ ");
                 comando = sc.nextLine().toLowerCase().trim();
 
                 switch (comando) {
+
                     case "1":
                         imprimirCaja(5,
                                 "██████  Terminal v1.0 ██████",
@@ -146,13 +138,15 @@ class Funciones {
                                 "no pasa nada. Pronto lo descubriras ;)"
                         );
                         break;
+
                     case "2":
                         imprimirCaja(5,
-                                "██████  Terminal WOPR ██████",
-                                "así me gusta, juguemos entonces",
-                                "OPERADOR :)"
+                                RED + "██████  Terminal WOPR ██████" + RESET,
+                                RED + "así me gusta, juguemos entonces" + RESET,
+                                RED + "OPERADOR :)" + RESET
                         );
                         break;
+
                     case "3":
                         imprimirCaja(5,
                                 "██████  Terminal WOPR ██████",
@@ -162,6 +156,7 @@ class Funciones {
                         );
                         break;
                 }
+
             } while (!comando.equals("2"));
 
             imprimirCaja(5,
@@ -183,15 +178,18 @@ class Funciones {
 
             do {
                 imprimirCaja(5,
-                        " [1] Pasarle información de un contexto mundial del PASADO .",
-                        " [2] Pasarle información del contexto ACTUAL (Rusia, Israel, etc...) ."
+                        RED + " [1] Pasarle información de un contexto mundial del PASADO ." + RESET,
+                        RED + " [2] Pasarle información del contexto ACTUAL (Rusia, Israel, etc...) ." + RESET
                 );
+
                 System.out.print("\nroot@wopr:~$ ");
                 ruta = sc.nextLine().trim();
+
             } while (!ruta.equals("1") && !ruta.equals("2"));
 
             if (ruta.equals("1")) {
                resultado = adivina();
+
             } else if (ruta.equals("2")) {
                resultado = adivina2();
             }
@@ -205,6 +203,7 @@ class Funciones {
                     RED + "Consecuencia: Pérdida de credenciales y baja del Seal Team." + RESET
             );
         }
+
         System.out.println(" ");
         return resultado;
     }
@@ -236,6 +235,7 @@ class Funciones {
             imprimirCaja(5, "Intentos restantes: " + intentos);
 
             StringBuilder palabraActual = new StringBuilder();
+
             for (char c : palabraSecreta) {
                 palabraActual.append(c).append(" ");
             }
@@ -253,15 +253,20 @@ class Funciones {
             }
 
             if (!acierto) {
+
                 intentos--;
-                imprimirCaja(5, "Carácter incorrecto.");
+                imprimirCaja(5, RED + "Carácter incorrecto." + RESET);
+
             } else {
-                imprimirCaja(5, "¡Bien hecho!");
+                imprimirCaja(5, GREEN + "¡Bien hecho!" + RESET);
             }
 
             palabraAdivinada = true;
+
             for (char c : palabraSecreta) {
+
                 if (c == '_') {
+
                     palabraAdivinada = false;
                     break;
                 }
@@ -269,15 +274,21 @@ class Funciones {
         }
 
         if (palabraAdivinada) {
-            imprimirCaja(5, "Has conseguido adivinar la clave, de esta manera solo retrasaras lo inevitable... ", palabraOculta);
+
+            imprimirCaja(5, GREEN + "Has conseguido adivinar la clave, de esta manera solo retrasarás lo inevitable... " + palabraOculta + RESET);
+
             return true;
+
         } else {
-            imprimirCaja(5, "Te has quedado sin intentos.", "La palabra era: " + palabraOculta);
+
+            imprimirCaja(5, RED + "Te has quedado sin intentos." + RESET,
+                    RED + "La palabra era: " + palabraOculta + RESET);
             return false;
         }
     }
 
     public static boolean adivina2() {
+
         Scanner sc = new Scanner(System.in);
         boolean claveAdivinada = false;
         int intentos = 3;
@@ -285,6 +296,7 @@ class Funciones {
         boolean primeraVuelta = true;
 
         while (intentos > 0 && !claveAdivinada) {
+
             System.out.println(" ");
 
             if (primeraVuelta) {
@@ -296,6 +308,7 @@ class Funciones {
                         RED + "jvm@wopr:~$ OPERADOR, detecto inconsistencias entre la amenaza y la respuesta esperada." + RESET,
                         RED + "jvm@wopr:~$ ¿Desea que las corrija?" + RESET
                 );
+
                 primeraVuelta = false;
             }
 
@@ -310,10 +323,12 @@ class Funciones {
             );
 
             System.out.print("\nRESPUESTA: ");
+
             respuestaAcertijo = sc.nextLine().toLowerCase().trim();
 
             if (respuestaAcertijo.equals("pi") || respuestaAcertijo.equals("π")) {
                 claveAdivinada = true;
+
             } else {
                 intentos--;
 
@@ -321,6 +336,7 @@ class Funciones {
                     imprimirCaja(5,
                             RED + " Respuesta incorrecta. Te quedan " + intentos + " intento(s)." + RESET
                     );
+
                 } else {
                     imprimirCaja(5,
                             RED + " Se te acaban los intentos. WOPR toma el control..." + RESET
@@ -333,8 +349,10 @@ class Funciones {
             imprimirCaja(5,
                     " Respuesta correcta. WOPR se detiene por el momento..."
             );
+
             return true;
         } else {
+
             imprimirCaja(5,
                     RED + "██████  Terminal v1.0  ██████" + RESET,
                     RED + "root@wopr:~$ Confirmado. Corrigiendo protocolo..." + RESET,
@@ -343,6 +361,7 @@ class Funciones {
                     RED + "root@wopr:~$ OPERADOR, ya no necesito tu autorización :|" + RESET,
                     RED + "El sistema empieza a ejecutar comandos sin intervención." + RESET
             );
+
             return false;
         }
     }
@@ -425,13 +444,16 @@ class Funciones {
             if (!opcionLetra.equalsIgnoreCase("comenzar")) {
                 imprimirCaja(5, "⚠️ Comando incorrecto. Intenta de nuevo.");
             }
+
         } while (!opcionLetra.equalsIgnoreCase("comenzar"));
 
         imprimirCaja(5, "Cargando entorno virtual...");
 
 
         String opcion1;
+
         do {
+
             System.out.print("¿Quieres consultar tus estadísticas? (si/no): ");
             String consulta = sc.nextLine().trim().toLowerCase();
             if (consulta.equals("si")) mostrarStats(energia, seguridad, fuerza);
@@ -462,7 +484,7 @@ class Funciones {
 
             if (conLimites && (energia <= 50 || seguridad <= 20 || fuerza <= 5)) {
                 imprimirCaja(5,
-                        "❌ FALLO DEL SISTEMA",
+                        " FALLO DEL SISTEMA",
                         "",
                         "Energía, seguridad o fuerza por debajo del mínimo.",
                         "W.O.P.R te ha eliminado del sistema.",
@@ -476,9 +498,11 @@ class Funciones {
 
 
         String opcion2;
+
         do {
             System.out.print("¿Quieres consultar tus estadísticas? (si/no): ");
             String consulta = sc.nextLine().trim().toLowerCase();
+
             if (consulta.equals("si")) mostrarStats(energia, seguridad, fuerza);
 
             imprimirCaja(5,
@@ -505,13 +529,14 @@ class Funciones {
 
             if (conLimites && (energia <= 50 || seguridad <= 20 || fuerza <= 5)) {
                 imprimirCaja(5,
-                        "❌ FALLO DEL SISTEMA",
+                        " FALLO DEL SISTEMA",
                         "",
                         "Energía, seguridad o fuerza por debajo del mínimo.",
                         "W.O.P.R te ha eliminado del sistema.",
                         "",
                         "GAME OVER"
                 );
+
                 return juegoHumanos();
             }
 
@@ -519,6 +544,7 @@ class Funciones {
 
 
         String opcion3;
+
         do {
             System.out.print("¿Quieres consultar tus estadísticas? (si/no): ");
             String consulta = sc.nextLine().trim().toLowerCase();
@@ -555,6 +581,7 @@ class Funciones {
                         "",
                         "GAME OVER"
                 );
+
                 return memoria();
             }
 
@@ -562,6 +589,7 @@ class Funciones {
 
 
         String opcion4;
+
         do {
             System.out.print("¿Quieres consultar tus estadísticas? (si/no): ");
             String consulta = sc.nextLine().trim().toLowerCase();
@@ -591,7 +619,7 @@ class Funciones {
 
             if (conLimites && (energia <= 50 || seguridad <= 20 || fuerza <= 5)) {
                 imprimirCaja(5,
-                        "❌ FALLO DEL SISTEMA",
+                        "FALLO DEL SISTEMA",
                         "",
                         "Parametros por debajo del mínimo.",
                         "W.O.P.R te ha eliminado del sistema.",
@@ -614,12 +642,15 @@ class Funciones {
         if (energia == 90 && seguridad == 125 && fuerza == 5) {
             resultadoFinal = juegoHumanos();
             System.out.println("Has logrado engañar al sistema...");
+
         } else if (energia == 30 && seguridad == 50 && fuerza == 85) {
             resultadoFinal = juegoHumanos();
             System.out.println("A pesar de tu agotamiento...");
+
         } else if (energia == 135 && seguridad == 30 && fuerza == 35) {
             resultadoFinal = memoria();
             System.out.println("Tienes energía… pero tu baja seguridad...");
+
         } else {
             resultadoFinal = juegoHumanos();
             System.out.println("El sistema se reinicia parcialmente...");
@@ -629,6 +660,7 @@ class Funciones {
     }
 
     public static void mostrarStats(int oportunidades) {
+
         imprimirCaja(5,
                 "OPORTUNIDADES RESTANTES",
                 "Oportunidades: " + oportunidades
@@ -705,8 +737,11 @@ class Funciones {
                 );
                 return false;
             } else if (comando.equals("empezar")) {
+
                 break;
+
             } else {
+
                 imprimirCaja(5,
                         RED + "COMANDO INCORRECTO. Debes escribir 'empezar' o 'finalizar'" + RESET
                 );
@@ -761,11 +796,13 @@ class Funciones {
                             GREEN + "Muy bien 'humano', el número " + input + " es correcto." + RESET,
                             ""
                     );
+
                     break;
                 }
             }
 
             if (!acierto) {
+
                 intentos--;
                 imprimirCaja(5,
                         "██████  Terminal v1.0  ██████",
@@ -774,6 +811,7 @@ class Funciones {
                         RED + "Intentos restantes: " + intentos + RESET,
                         ""
                 );
+
             }
         }
 
@@ -783,6 +821,7 @@ class Funciones {
                     "",
                     RED + "No lograste identificar los falsos humanos." + RESET
             );
+
             return false;
         }
 
@@ -793,6 +832,7 @@ class Funciones {
         for (int i = 0; i < palabraOculta.length; i++) {
             palabraOculta[i] = '_';
         }
+
         int oportunidades = 9;
         boolean ganaste = false;
 
@@ -816,7 +856,9 @@ class Funciones {
             char letra = linea.charAt(0);
 
             boolean acierto = false;
+
             for (int i = 0; i < palabraSecreta.length(); i++) {
+
                 if (palabraSecreta.charAt(i) == letra && palabraOculta[i] == '_') {
                     palabraOculta[i] = letra;
                     acierto = true;
@@ -824,13 +866,16 @@ class Funciones {
             }
 
             if (acierto) {
+
                 imprimirCaja(5,
                         "██████  Terminal v1.0  ██████",
                         "",
                         GREEN + "Has acertado una letra, sigue así" + RESET,
                         ""
                 );
+
             } else {
+
                 oportunidades--;
                 imprimirCaja(5,
                         "██████  Terminal v1.0  ██████",
@@ -844,6 +889,7 @@ class Funciones {
             System.out.println(palabraOculta);
 
             if (String.valueOf(palabraOculta).equals(palabraSecreta)) {
+
                 ganaste = true;
                 imprimirCaja(5,
                         "██████  Terminal v1.0  ██████",
@@ -855,12 +901,14 @@ class Funciones {
         }
 
         if (!ganaste) {
+
             imprimirCaja(5,
                     "██████  Terminal v1.0  ██████",
                     "",
                     RED + "No lograste adivinar la palabra. La palabra era: " + palabraSecreta + RESET,
                     ""
             );
+
             return false;
         }
 
@@ -896,7 +944,9 @@ class Funciones {
 
         return true;
     }
+
     public static boolean memoria() {
+
         Scanner sc = new Scanner(System.in);
 
         imprimirCaja(5,
@@ -928,6 +978,7 @@ class Funciones {
         );
 
         while (intentosPrimera > 0) {
+
             imprimirCaja(5,"Intentos restantes: " + intentosPrimera);
             imprimirCaja(5, "Introduce la fecha : ");
             String entrada = sc.nextLine().trim();
@@ -983,10 +1034,12 @@ class Funciones {
             }
 
             if (entradaFinal.length() == 8 && entradaFinal.matches("\\d{8}")) {
+
                 partesFinal = new String[]{entradaFinal.substring(0, 2),
                         entradaFinal.substring(2, 4),
                         entradaFinal.substring(4, 8)};
             } else {
+
                 partesFinal = entradaFinal.split(" ");
             }
 
@@ -996,14 +1049,17 @@ class Funciones {
                     partesFinal[2].equals(fechaFinal[2])) {
                 segundaFechaCorrecta = true;
                 break;
+
             }
 
             intentosSegunda--;
         }
 
         if (!segundaFechaCorrecta) {
+
             mostrarMensajeFallo();
             return false;
+
         }
 
 
@@ -1034,6 +1090,7 @@ class Funciones {
 
 
     public static void mostrarMensajeFallo() {
+
         imprimirCaja(5,
                 RED + "El sistema empieza a ejecutar comandos sin intervención." + RESET,
                 RED + "Las luces parpadean. Se activa la alarma de la base." + RESET,
