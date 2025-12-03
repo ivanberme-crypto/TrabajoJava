@@ -655,7 +655,7 @@ class Funciones {
                 "El operador revisa los registros.",
                 "Todo parece normal, salvo una línea repetida cientos de",
                 "veces:",
-                "[LOG_17: Activación de simulación – Operador conectado]",
+                RED + "[LOG_17: Activación de simulación – Operador conectado]" + RESET,
                 "Resultado: Falla crítica",
                 "",
                 "'OPERADOR', ¿recuerdas haber iniciado esta simulación",
@@ -714,43 +714,55 @@ class Funciones {
         }
 
 
-        imprimirCaja(5,
-                "Lista de humanos",
-                "────────────────────────────────────────────────────────────",
-                "1  Joan   Respuesta: Lo siento, nunca tengo dinero",
-                "   Nivel de empatia: 20  |  Temperatura: 34º",
-                "",
-                "2  Vanesa Respuesta: ¿Tienes manera de demostrarlo?",
-                "   Nivel de empatia: 30  |  Temperatura: 35º",
-                "",
-                "3  James  Respuesta: Puedo pedir que te compren algo",
-                "   Nivel de empatia: 50  |  Temperatura: 37º",
-                "",
-                "4  Marti  Respuesta: ¿Qué comida necesitas?",
-                "   Nivel de empatia: 60  |  Temperatura: 36º",
-                "",
-                "5  Lorena Respuesta: Deberías buscar trabajo...",
-                "   Nivel de empatia: 70  |  Temperatura: 36º"
-        );
+
+        String[][] humanos = {
+                {"Joan",   "Lo siento, nunca tengo dinero",             "20", "34"},
+                {"Vanesa", "¿Tienes manera de demostrarlo?",            "30", "35"},
+                {"James",  "Puedo pedir que te compren algo",           "50", "37"},
+                {"Marti",  "¿Qué comida necesitas?",                    "60", "36"},
+                {"Lorena", "Deberías buscar trabajo...",                "70", "36"}
+        };
+
+
+        int[] falsosHumanos = {0, 2};
+
+
+        imprimirCaja(5, "Lista de humanos", "──────────────────────────────────────────────");
+
+        for (int i = 0; i < humanos.length; i++) {
+            imprimirCaja(5,
+                    (i + 1) + "  " + humanos[i][0] + "  Respuesta: " + humanos[i][1],
+                    "   Nivel de empatía: " + humanos[i][2] + "  |  Temperatura: " + humanos[i][3] + "º",
+                    ""
+            );
+        }
 
         int contadorAciertos = 0;
         int intentos = 3;
 
         while (intentos > 0 && contadorAciertos < 2) {
+
             mostrarStats(intentos);
             printSlow("Introduce el número del falso humano:", 5);
             String input = sc.nextLine().trim();
+
             boolean acierto = false;
 
-            if (input.equals("1") || input.equals("3")) {
-                contadorAciertos++;
-                acierto = true;
-                imprimirCaja(5,
-                        "██████  Terminal v1.0  ██████",
-                        "",
-                        GREEN + "Muy bien 'humano', el número " + input + " es correcto." + RESET,
-                        ""
-                );
+
+            for (int falso : falsosHumanos) {
+
+                if (input.equals(String.valueOf(falso + 1))) {
+                    contadorAciertos++;
+                    acierto = true;
+
+                    imprimirCaja(5,
+                            "██████  Terminal v1.0  ██████",
+                            "",
+                            GREEN + "Muy bien 'humano', el número " + input + " es correcto." + RESET,
+                            ""
+                    );
+                    break;
+                }
             }
 
             if (!acierto) {
