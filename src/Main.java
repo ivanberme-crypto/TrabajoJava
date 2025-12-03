@@ -20,7 +20,7 @@ public class Main {
 
 
             if (!resultadoFinal) {
-                System.out.println("Has perdido. ¿Quieres volver a intentarlo? (s/n)");
+                System.out.println("Has perdido. ¿Quieres volver a intentarlo? (si/no)");
                 String respuesta = sc.nextLine().trim().toLowerCase();
 
                 if (!respuesta.equals("si")) {
