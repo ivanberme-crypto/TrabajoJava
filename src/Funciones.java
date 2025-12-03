@@ -35,7 +35,7 @@ class Funciones {
 
         String borde = "═".repeat(ancho + 2);
 
-        // Borde superior
+
         printSlow(WHITE + "╔" + borde + "╗" + RESET, delay);
 
         for (String linea : lineas) {
@@ -46,7 +46,7 @@ class Funciones {
             printSlow(WHITE + "║ " + linea + relleno + " ║" + RESET, delay);
         }
 
-        // Borde inferior
+
         printSlow(WHITE + "╚" + borde + "╝" + RESET, delay);
     }
 
@@ -796,6 +796,7 @@ class Funciones {
         System.out.println(palabraOculta);
 
         while (oportunidades > 0 && !ganaste) {
+
             mostrarStats(oportunidades);
             System.out.print("Introduce una letra: ");
             String linea = sc.nextLine().toLowerCase().trim();
