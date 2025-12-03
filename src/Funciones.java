@@ -188,10 +188,10 @@ class Funciones {
             } while (!ruta.equals("1") && !ruta.equals("2"));
 
             if (ruta.equals("1")) {
-               resultado = adivina();
+                resultado = adivina();
 
             } else if (ruta.equals("2")) {
-               resultado = adivina2();
+                resultado = adivina2();
             }
 
         } else {
@@ -207,8 +207,6 @@ class Funciones {
         System.out.println(" ");
         return resultado;
     }
-
-
 
 
     public static boolean adivina() {
@@ -367,7 +365,6 @@ class Funciones {
     }
 
 
-
     public static void imprimirHistoria() {
 
 
@@ -417,7 +414,6 @@ class Funciones {
                 "Fuerza:    " + f
         );
     }
-
 
 
     public static boolean Porcentajes(Scanner sc, boolean conLimites) {
@@ -472,7 +468,10 @@ class Funciones {
             opcion1 = sc.nextLine().trim().toLowerCase();
 
             switch (opcion1) {
-                case "a" -> { energia -= 25; fuerza += 10; }
+                case "a" -> {
+                    energia -= 25;
+                    fuerza += 10;
+                }
                 case "b" -> seguridad += 20;
                 case "c" -> seguridad -= 5;
                 case "d" -> imprimirCaja(5, "MENSAJE DE WOPR", "", "\"Romper es fácil. Entender es difícil...\"");
@@ -518,9 +517,18 @@ class Funciones {
             opcion2 = sc.nextLine().trim().toLowerCase();
 
             switch (opcion2) {
-                case "a" -> { seguridad += 15; energia -= 10; }
-                case "b" -> { energia += 25; seguridad -= 10; }
-                case "c" -> { fuerza += 20; energia -= 15; }
+                case "a" -> {
+                    seguridad += 15;
+                    energia -= 10;
+                }
+                case "b" -> {
+                    energia += 25;
+                    seguridad -= 10;
+                }
+                case "c" -> {
+                    fuerza += 20;
+                    energia -= 15;
+                }
                 default -> {
                     imprimirCaja(5, "Comando inválido.");
                     System.out.println(">> Elige opción: ");
@@ -563,9 +571,18 @@ class Funciones {
             opcion3 = sc.nextLine().trim().toLowerCase();
 
             switch (opcion3) {
-                case "a" -> { energia += 30; seguridad -= 10; }
-                case "b" -> { fuerza += 15; energia -= 10; }
-                case "c" -> { seguridad += 25; fuerza -= 5; }
+                case "a" -> {
+                    energia += 30;
+                    seguridad -= 10;
+                }
+                case "b" -> {
+                    fuerza += 15;
+                    energia -= 10;
+                }
+                case "c" -> {
+                    seguridad += 25;
+                    fuerza -= 5;
+                }
                 default -> {
                     imprimirCaja(5, "Comando inválido.");
                     System.out.println(">> Elige opción: ");
@@ -574,7 +591,7 @@ class Funciones {
 
             if (conLimites && (energia <= 50 || seguridad <= 20 || fuerza <= 5)) {
                 imprimirCaja(5,
-                        "❌ FALLO DEL SISTEMA",
+                        " FALLO DEL SISTEMA",
                         "",
                         "Parametros por debajo del mínimo.",
                         "W.O.P.R te ha eliminado del sistema.",
@@ -608,9 +625,18 @@ class Funciones {
             opcion4 = sc.nextLine().trim().toLowerCase();
 
             switch (opcion4) {
-                case "a" -> { energia += 20; seguridad -= 5; }
-                case "b" -> { fuerza += 20; energia -= 20; }
-                case "c" -> { seguridad += 15; fuerza -= 10; }
+                case "a" -> {
+                    energia += 20;
+                    seguridad -= 5;
+                }
+                case "b" -> {
+                    fuerza += 20;
+                    energia -= 20;
+                }
+                case "c" -> {
+                    seguridad += 15;
+                    fuerza -= 10;
+                }
                 default -> {
                     imprimirCaja(5, "Comando inválido.");
                     System.out.println(">> Elige opción: ");
@@ -749,31 +775,27 @@ class Funciones {
         }
 
 
-
         String[][] humanos = {
-                {"Joan",   "Lo siento, nunca tengo dinero",             "20", "34"},
-                {"Vanesa", "¿Tienes manera de demostrarlo?",            "30", "35"},
-                {"James",  "Puedo pedir que te compren algo",           "50", "37"},
-                {"Marti",  "¿Qué comida necesitas?",                    "60", "36"},
-                {"Lorena", "Deberías buscar trabajo...",                "70", "36"}
+                {"1", "Joan", "Lo siento, nunca tengo dinero", "20", "34"},
+                {"0", "Vanesa", "¿Tienes manera de demostrarlo?", "30", "35"},
+                {"1", "James", "Puedo pedir que te compren algo", "50", "37"},
+                {"0", "Marti", "¿Qué comida necesitas?", "60", "36"},
+                {"0", "Lorena", "Deberías buscar trabajo...", "70", "36"}
         };
 
 
-        int[] falsosHumanos = {0, 2};
-
-
         imprimirCaja(5, "Lista de humanos", "──────────────────────────────────────────────");
-
         for (int i = 0; i < humanos.length; i++) {
             imprimirCaja(5,
-                    (i + 1) + "  " + humanos[i][0] + "  Respuesta: " + humanos[i][1],
-                    "   Nivel de empatía: " + humanos[i][2] + "  |  Temperatura: " + humanos[i][3] + "º",
+                    (i + 1) + "  " + humanos[i][1] + "  Respuesta: " + humanos[i][2],
+                    "   Nivel de empatía: " + humanos[i][3] + "  |  Temperatura: " + humanos[i][4] + "º",
                     ""
             );
         }
 
         int contadorAciertos = 0;
         int intentos = 3;
+
 
         while (intentos > 0 && contadorAciertos < 2) {
 
@@ -784,9 +806,9 @@ class Funciones {
             boolean acierto = false;
 
 
-            for (int falso : falsosHumanos) {
+            for (int i = 0; i < humanos.length; i++) {
 
-                if (input.equals(String.valueOf(falso + 1))) {
+                if (input.equals(String.valueOf(i + 1)) && humanos[i][0].equals("1")) {
                     contadorAciertos++;
                     acierto = true;
 
@@ -796,13 +818,11 @@ class Funciones {
                             GREEN + "Muy bien 'humano', el número " + input + " es correcto." + RESET,
                             ""
                     );
-
                     break;
                 }
             }
 
             if (!acierto) {
-
                 intentos--;
                 imprimirCaja(5,
                         "██████  Terminal v1.0  ██████",
@@ -811,7 +831,6 @@ class Funciones {
                         RED + "Intentos restantes: " + intentos + RESET,
                         ""
                 );
-
             }
         }
 
@@ -821,9 +840,19 @@ class Funciones {
                     "",
                     RED + "No lograste identificar los falsos humanos." + RESET
             );
-
             return false;
+        } else {
+
+            imprimirCaja(5,
+                    "██████  Terminal v1.0  ██████",
+                    "",
+                    GREEN + "Muy bien 'humano' has identificado los dos falsos humanos correctamente." + RESET
+            );
         }
+
+
+
+
 
         String palabraSecreta = "cortafuegos";
         char[] palabraOculta = new char[palabraSecreta.length()];
@@ -833,7 +862,7 @@ class Funciones {
             palabraOculta[i] = '_';
         }
 
-        int oportunidades = 9;
+        int oportunidades = 7;
         boolean ganaste = false;
 
         imprimirCaja(5,
