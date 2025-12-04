@@ -677,7 +677,7 @@ class Funciones {
                         "GAME OVER"
                 );
 
-                return finalMemoria();
+                return finalJuegoHumanos();
             }
 
         } while (!opcion3.matches("[abc]"));
@@ -730,7 +730,7 @@ class Funciones {
                         "",
                         "GAME OVER"
                 );
-                return finalMemoria();
+                return finalJuegoHumanos();
             }
 
         } while (!opcion4.matches("[abc]"));
@@ -747,7 +747,7 @@ class Funciones {
                 seguridad >= 70 && seguridad <= 120 &&
                 fuerza >= 20 && fuerza <= 45) {
 
-            resultadoFinal = finalJuegoHumanos();
+            resultadoFinal = finalMemoria();
             System.out.println("Has mantenido el equilibrio del sistema y ganas algo de tiempo.");
 
 
@@ -971,6 +971,7 @@ class Funciones {
             mostrarStats(oportunidades);
             System.out.print("Introduce una letra: ");
             String linea = sc.nextLine().toLowerCase().trim();
+
             if (linea.isEmpty()) continue;
             char letra = linea.charAt(0);
 
