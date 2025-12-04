@@ -925,11 +925,29 @@ class Funciones {
         }
 
         if (contadorAciertos < 2) {
+
             imprimirCaja(5,
                     "██████  Terminal v1.0  ██████",
                     "",
                     RED + "No lograste identificar los falsos humanos." + RESET
             );
+
+            imprimirCaja(5,
+                    "",
+                    "██████  Terminal v1.0  ██████",
+                    "",
+                    RED + "Resultados inconsistentes." + RESET,
+                    RED + "El Operador no cumple parámetros biológicos." + RESET,
+                    RED + "Posible agente simulado detectado." + RESET,
+                    RED + "Ejecutando limpieza de entorno..." + RESET,
+                    "",
+                    RED + "Las luces parpadean." + RESET,
+                    RED + "Se escucha un pitido grave." + RESET,
+                    RED + "En pantalla, solo queda una línea:" + RESET,
+                    RED + "'Ejecutando autodestrucción'" + RESET,
+                    RED + "¡EEUU queda destruido!" + RESET
+            );
+
             return false;
         } else {
 
@@ -1027,6 +1045,22 @@ class Funciones {
                     "",
                     RED + "No lograste adivinar la palabra. La palabra era: " + palabraSecreta + RESET,
                     ""
+            );
+
+            imprimirCaja(5,
+                    "",
+                    "██████  Terminal v1.0  ██████",
+                    "",
+                    RED + "Resultados inconsistentes." + RESET,
+                    RED + "El Operador no cumple parámetros biológicos." + RESET,
+                    RED + "Posible agente simulado detectado." + RESET,
+                    RED + "Ejecutando limpieza de entorno..." + RESET,
+                    "",
+                    RED + "Las luces parpadean." + RESET,
+                    RED + "Se escucha un pitido grave." + RESET,
+                    RED + "En pantalla, solo queda una línea:" + RESET,
+                    RED + "'Ejecutando autodestrucción'" + RESET,
+                    RED + "¡EEUU queda destruido!" + RESET
             );
 
             return false;
