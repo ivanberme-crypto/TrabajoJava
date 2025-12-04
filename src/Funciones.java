@@ -216,6 +216,7 @@ class Funciones {
                     RED + "decides abandonar antes del experimento." + RESET,
                     RED + "Consecuencia: Pérdida de credenciales y baja del Seal Team." + RESET
             );
+            imprimirHistoria();
         }
 
         System.out.println(" ");
@@ -431,12 +432,24 @@ class Funciones {
     }
 
 
-    public static boolean Porcentajes(Scanner sc, boolean conLimites) {
+    public static boolean determinarFinal(Scanner sc, boolean conLimites) {
+
+        if(conLimites){
+           boolean  resultadoFinal = juegoHumanos();
+
+            if(resultadoFinal){
+                return true;
+            }else {
+                return false;
+            }
+
+        }
+
 
         String[][] inventario = {
                 { "1" , "Energía: 100", "Seguridad: 50", "Fuerza: 20" },
-                { "2" ,"Energía: 70", "Seguridad: 30", "Fuerza: 10" },
-                {"3" , "Energía: 80", "Seguridad: 40", "Fuerza: 15" }
+                { "2" ,"Energía: 80", "Seguridad: 30", "Fuerza: 10" },
+                {"3" , "Energía: 125", "Seguridad: 60", "Fuerza: 25" }
         };
 
 
@@ -468,9 +481,9 @@ class Funciones {
                 fuerza = 20;
 
             } else if (camino.equals("2")) {
-                energia = 70;
-                seguridad = 30;
-                fuerza = 10;
+                energia = 80;
+                seguridad = 45;
+                fuerza = 15;
 
             } else if (camino.equals("3")) {
                 energia = 125;
@@ -546,7 +559,7 @@ class Funciones {
                 }
             }
 
-            if (conLimites && (energia <= 70 || seguridad <= 30 || fuerza <= 10)) {
+            if ((energia <= 70 || seguridad <= 30 || fuerza <= 10)) {
                 imprimirCaja(5,
                         " FALLO DEL SISTEMA",
                         "",
@@ -600,7 +613,7 @@ class Funciones {
                 }
             }
 
-            if (conLimites && (energia <= 70 || seguridad <= 30 || fuerza <= 10)) {
+            if ((energia <= 70 || seguridad <= 30 || fuerza <= 10)) {
                 imprimirCaja(5,
                         " FALLO DEL SISTEMA",
                         "",
@@ -654,7 +667,7 @@ class Funciones {
                 }
             }
 
-            if (conLimites && (energia <= 70 || seguridad <= 30 || fuerza <= 10)) {
+            if ((energia <= 70 || seguridad <= 30 || fuerza <= 10)) {
                 imprimirCaja(5,
                         " FALLO DEL SISTEMA",
                         "",
@@ -708,7 +721,7 @@ class Funciones {
                 }
             }
 
-            if (conLimites && (energia <= 70 || seguridad <= 20 || fuerza <= 5)) {
+            if ((energia <= 70 || seguridad <= 20 || fuerza <= 5)) {
                 imprimirCaja(5,
                         "FALLO DEL SISTEMA",
                         "",
@@ -730,17 +743,29 @@ class Funciones {
 
         boolean resultadoFinal;
 
-        if (energia == 90 && seguridad == 125 && fuerza == 5) {
-            resultadoFinal = juegoHumanos();
-            System.out.println("Has logrado engañar al sistema...");
+        if (energia >= 90 && energia <= 160 &&
+                seguridad >= 70 && seguridad <= 120 &&
+                fuerza >= 20 && fuerza <= 45) {
 
-        } else if (energia == 30 && seguridad == 50 && fuerza == 85) {
             resultadoFinal = juegoHumanos();
-            System.out.println("A pesar de tu agotamiento...");
+            System.out.println("Has mantenido el equilibrio del sistema y ganas algo de tiempo.");
 
-        } else if (energia == 135 && seguridad == 30 && fuerza == 35) {
+
+        }else if (energia >= 70 && energia <= 110 &&
+                seguridad >= 30 && seguridad <= 70 &&
+                fuerza >= 50 && fuerza <= 85) {
+
+            resultadoFinal = juegoHumanos();
+            System.out.println("Superas a WOPR a base de fuerza bruta.");
+
+
+        }else if (energia >= 120 && energia <= 170 &&
+                seguridad >= 30 && seguridad <= 50 &&
+                fuerza >= 30 && fuerza <= 60) {
+
             resultadoFinal = memoria();
-            System.out.println("Tienes energía… pero tu baja seguridad...");
+            System.out.println("Tienes potencia, pero la baja seguridad te traiciona...");
+
 
         } else {
             resultadoFinal = juegoHumanos();

@@ -14,7 +14,7 @@ public class Main {
 
             Funciones.imprimirHistoria();
 
-            boolean resultadoFinal = Funciones.Porcentajes(sc, resultadoIntroduccion);
+            boolean resultadoFinal = Funciones.determinarFinal(sc,resultadoIntroduccion);
 
             Funciones.imprimirFinal(resultadoFinal);
 
