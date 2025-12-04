@@ -176,22 +176,36 @@ class Funciones {
             );
 
 
+            String[] inventario = {
+                    RED + " [1] Pasarle información de un contexto mundial del PASADO ." + RESET,
+                    RED + " [2] Pasarle información del contexto ACTUAL (Rusia, Israel, etc...) ." + RESET,
+                    RED + " [3] Pasarle información de un contexto INVENTADO." + RESET
+            };
+
+
+
+
             do {
                 imprimirCaja(5,
-                        RED + " [1] Pasarle información de un contexto mundial del PASADO ." + RESET,
-                        RED + " [2] Pasarle información del contexto ACTUAL (Rusia, Israel, etc...) ." + RESET
+                        "=== INVENTARIO DEL SISTEMA ===",
+                        inventario[0],
+                        inventario[1],
+                        inventario[2]
                 );
 
                 System.out.print("\nroot@wopr:~$ ");
                 ruta = sc.nextLine().trim();
 
-            } while (!ruta.equals("1") && !ruta.equals("2"));
+            } while (!ruta.equals("1") && !ruta.equals("2") && !ruta.equals("3"));
 
             if (ruta.equals("1")) {
                 resultado = adivina();
 
             } else if (ruta.equals("2")) {
                 resultado = adivina2();
+
+            }else if (ruta.equals("3")) {
+                 imprimirHistoria();
             }
 
         } else {
@@ -256,7 +270,8 @@ class Funciones {
                 imprimirCaja(5, RED + "Carácter incorrecto." + RESET);
 
             } else {
-                imprimirCaja(5, GREEN + "¡Bien hecho!" + RESET);
+                imprimirCaja(5, GREEN + "Letra correcta" + RESET);
+
             }
 
             palabraAdivinada = true;
@@ -418,9 +433,57 @@ class Funciones {
 
     public static boolean Porcentajes(Scanner sc, boolean conLimites) {
 
-        int energia = 100;
-        int seguridad = 50;
-        int fuerza = 20;
+        String[][] inventario = {
+                { "1" , "Energía: 100", "Seguridad: 50", "Fuerza: 20" },
+                { "2" ,"Energía: 70", "Seguridad: 30", "Fuerza: 10" },
+                {"3" , "Energía: 80", "Seguridad: 40", "Fuerza: 15" }
+        };
+
+
+        imprimirCaja(5, "Inventario del sistema", "──────────────────────────────────────────────");
+
+        for (int i = 0; i < inventario.length; i++) {
+            imprimirCaja(5,
+                    inventario[i][0] + "  " + inventario[i][1],
+                    "   " + inventario[i][2] + "  |  " + inventario[i][3],
+                    ""
+            );
+        }
+
+        int energia = 0;
+        int seguridad = 0;
+        int fuerza = 0;
+        String camino;
+
+        do {
+
+            imprimirCaja(5,"Elige los stats que quieres utilizar");
+            System.out.print(">> ");
+            camino = sc.nextLine();
+
+
+            if (camino.equals("1")) {
+                energia = 100;
+                seguridad = 50;
+                fuerza = 20;
+
+            } else if (camino.equals("2")) {
+                energia = 70;
+                seguridad = 30;
+                fuerza = 10;
+
+            } else if (camino.equals("3")) {
+                energia = 125;
+                seguridad = 60;
+                fuerza = 25;
+
+            } else {
+                imprimirCaja(5,"Introduce un inventario válido");
+                System.out.println(" ");
+            }
+
+        }while(!camino.equals("1") && !camino.equals("2") && !camino.equals("3"));
+
 
         String opcionLetra;
         do {
@@ -434,11 +497,13 @@ class Funciones {
                     "Escribe 'comenzar' para iniciar el protocolo."
             );
 
+
             System.out.print(">> Entrada de usuario: ");
             opcionLetra = sc.nextLine().trim();
+            System.out.println(" ");
 
             if (!opcionLetra.equalsIgnoreCase("comenzar")) {
-                imprimirCaja(5, "⚠️ Comando incorrecto. Intenta de nuevo.");
+                imprimirCaja(5, "Comando incorrecto. Intenta de nuevo.");
             }
 
         } while (!opcionLetra.equalsIgnoreCase("comenzar"));
@@ -481,7 +546,7 @@ class Funciones {
                 }
             }
 
-            if (conLimites && (energia <= 50 || seguridad <= 20 || fuerza <= 5)) {
+            if (conLimites && (energia <= 70 || seguridad <= 30 || fuerza <= 10)) {
                 imprimirCaja(5,
                         " FALLO DEL SISTEMA",
                         "",
@@ -535,7 +600,7 @@ class Funciones {
                 }
             }
 
-            if (conLimites && (energia <= 50 || seguridad <= 20 || fuerza <= 5)) {
+            if (conLimites && (energia <= 70 || seguridad <= 30 || fuerza <= 10)) {
                 imprimirCaja(5,
                         " FALLO DEL SISTEMA",
                         "",
@@ -589,7 +654,7 @@ class Funciones {
                 }
             }
 
-            if (conLimites && (energia <= 50 || seguridad <= 20 || fuerza <= 5)) {
+            if (conLimites && (energia <= 70 || seguridad <= 30 || fuerza <= 10)) {
                 imprimirCaja(5,
                         " FALLO DEL SISTEMA",
                         "",
@@ -643,7 +708,7 @@ class Funciones {
                 }
             }
 
-            if (conLimites && (energia <= 50 || seguridad <= 20 || fuerza <= 5)) {
+            if (conLimites && (energia <= 70 || seguridad <= 20 || fuerza <= 5)) {
                 imprimirCaja(5,
                         "FALLO DEL SISTEMA",
                         "",
@@ -698,7 +763,7 @@ class Funciones {
         Scanner sc = new Scanner(System.in);
         String comando = "";
 
-        imprimirCaja(5, "Esta bien operador has conseguido ganar algo de tiempo...");
+
 
         System.out.println(" ");
         imprimirCaja(5, "El operador intenta apagar el sistema");
