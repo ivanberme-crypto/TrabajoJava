@@ -434,7 +434,7 @@ class Funciones {
 
     public static boolean determinarFinal(Scanner sc, boolean conLimites) {
 
-        if(conLimites){
+        if(!conLimites){
            boolean  resultadoFinal = finalJuegoHumanos();
 
             if(resultadoFinal){

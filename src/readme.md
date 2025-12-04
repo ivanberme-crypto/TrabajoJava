@@ -52,7 +52,7 @@ src/
 - `adivina2()`
 - `imprimirHistoria()`
 - `mostrarStats()` (sobrecargado)
-- `Porcentajes()`
+- `determinarFinal()`
 - `finalJuegoHumanos()`
 - `finalMemoria()`
 - `mostrarMensajeFallo()`
