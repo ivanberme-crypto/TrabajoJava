@@ -53,8 +53,8 @@ src/
 - `imprimirHistoria()`
 - `mostrarStats()` (sobrecargado)
 - `Porcentajes()`
-- `juegoHumanos()`
-- `memoria()`
+- `finalJuegoHumanos()`
+- `finalMemoria()`
 - `mostrarMensajeFallo()`
 - `imprimirFinal()`
 

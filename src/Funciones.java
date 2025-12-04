@@ -435,7 +435,7 @@ class Funciones {
     public static boolean determinarFinal(Scanner sc, boolean conLimites) {
 
         if(conLimites){
-           boolean  resultadoFinal = juegoHumanos();
+           boolean  resultadoFinal = finalJuegoHumanos();
 
             if(resultadoFinal){
                 return true;
@@ -568,7 +568,7 @@ class Funciones {
                         "",
                         "GAME OVER"
                 );
-                return juegoHumanos();
+                return finalJuegoHumanos();
             }
 
         } while (!opcion1.matches("[abcd]"));
@@ -623,7 +623,7 @@ class Funciones {
                         "GAME OVER"
                 );
 
-                return juegoHumanos();
+                return finalJuegoHumanos();
             }
 
         } while (!opcion2.matches("[abc]"));
@@ -677,7 +677,7 @@ class Funciones {
                         "GAME OVER"
                 );
 
-                return memoria();
+                return finalMemoria();
             }
 
         } while (!opcion3.matches("[abc]"));
@@ -730,7 +730,7 @@ class Funciones {
                         "",
                         "GAME OVER"
                 );
-                return memoria();
+                return finalMemoria();
             }
 
         } while (!opcion4.matches("[abc]"));
@@ -747,7 +747,7 @@ class Funciones {
                 seguridad >= 70 && seguridad <= 120 &&
                 fuerza >= 20 && fuerza <= 45) {
 
-            resultadoFinal = juegoHumanos();
+            resultadoFinal = finalJuegoHumanos();
             System.out.println("Has mantenido el equilibrio del sistema y ganas algo de tiempo.");
 
 
@@ -755,7 +755,7 @@ class Funciones {
                 seguridad >= 30 && seguridad <= 70 &&
                 fuerza >= 50 && fuerza <= 85) {
 
-            resultadoFinal = juegoHumanos();
+            resultadoFinal = finalJuegoHumanos();
             System.out.println("Superas a WOPR a base de fuerza bruta.");
 
 
@@ -763,12 +763,12 @@ class Funciones {
                 seguridad >= 30 && seguridad <= 50 &&
                 fuerza >= 30 && fuerza <= 60) {
 
-            resultadoFinal = memoria();
+            resultadoFinal = finalMemoria();
             System.out.println("Tienes potencia, pero la baja seguridad te traiciona...");
 
 
         } else {
-            resultadoFinal = juegoHumanos();
+            resultadoFinal = finalJuegoHumanos();
             System.out.println("El sistema se reinicia parcialmente...");
         }
 
@@ -783,7 +783,7 @@ class Funciones {
         );
     }
 
-    public static boolean juegoHumanos() {
+    public static boolean finalJuegoHumanos() {
 
         Scanner sc = new Scanner(System.in);
         String comando = "";
@@ -1064,7 +1064,7 @@ class Funciones {
         return true;
     }
 
-    public static boolean memoria() {
+    public static boolean finalMemoria() {
 
         Scanner sc = new Scanner(System.in);
 
