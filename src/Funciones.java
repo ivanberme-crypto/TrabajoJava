@@ -91,6 +91,16 @@ class Funciones {
             );
             System.out.print(" > ");
             comando = sc.nextLine().toLowerCase().trim();
+
+            if(!comando.equals("si") && !comando.equals("no")){
+                imprimirCaja(
+                        5,
+                        RED + "██████  Terminal v1.0 ██████" + RESET,
+                        RED + "Introduce una opción válida" + RESET,
+                        RED + "¿No quieres jugar o qué, novato?" + RESET
+                );
+            }
+
         } while (!comando.equals("si") && !comando.equals("no"));
 
         System.out.println(" ");
@@ -141,8 +151,8 @@ class Funciones {
 
                     case "2":
                         imprimirCaja(5,
-                                RED + "██████  Terminal WOPR ██████" + RESET,
-                                RED + "así me gusta, juguemos entonces" + RESET,
+                                RED + "██████  Terminal v1.0 ██████" + RESET,
+                                RED + "Así me gusta, juguemos entonces" + RESET,
                                 RED + "OPERADOR :)" + RESET
                         );
                         break;
@@ -155,6 +165,15 @@ class Funciones {
                                 "y tu has tenido esa suerte OPERADOR ;)"
                         );
                         break;
+                }
+
+                if(!comando.equals("1") && !comando.equals("2") && !comando.equals("3")){
+                    imprimirCaja(
+                            5,
+                            RED + "██████  Terminal v1.0 ██████" + RESET,
+                            RED + "Introduce una opción válida" + RESET,
+                            RED + "¿No quieres jugar o qué, novato?" + RESET
+                    );
                 }
 
             } while (!comando.equals("2"));
@@ -195,6 +214,16 @@ class Funciones {
 
                 System.out.print("\nroot@wopr:~$ ");
                 ruta = sc.nextLine().trim();
+
+                if(!ruta.equals("1") && !ruta.equals("2") && !ruta.equals("3")){
+                    imprimirCaja(
+                            5,
+                            RED + "██████  Terminal v1.0 ██████" + RESET,
+                            RED + "Introduce una opción válida" + RESET,
+                            RED + "¿No quieres jugar o qué, novato?" + RESET
+                    );
+                }
+
 
             } while (!ruta.equals("1") && !ruta.equals("2") && !ruta.equals("3"));
 
@@ -289,7 +318,10 @@ class Funciones {
 
         if (palabraAdivinada) {
 
-            imprimirCaja(5, GREEN + "Has conseguido adivinar la clave, de esta manera solo retrasarás lo inevitable... " + palabraOculta + RESET);
+            imprimirCaja(
+                    5,
+                    GREEN + "Has conseguido adivinar la clave " + palabraOculta + ", de esta manera solo retrasarás lo inevitable..." + RESET
+            );
 
             return true;
 
@@ -491,7 +523,7 @@ class Funciones {
                 fuerza = 25;
 
             } else {
-                imprimirCaja(5,"Introduce un inventario válido");
+                imprimirCaja(5, RED + "Introduce un inventario válido" + RESET);
                 System.out.println(" ");
             }
 
@@ -516,7 +548,7 @@ class Funciones {
             System.out.println(" ");
 
             if (!opcionLetra.equalsIgnoreCase("comenzar")) {
-                imprimirCaja(5, "Comando incorrecto. Intenta de nuevo.");
+                imprimirCaja(5, RED + "Comando incorrecto. Intenta de nuevo." + RESET);
             }
 
         } while (!opcionLetra.equalsIgnoreCase("comenzar"));
@@ -524,13 +556,14 @@ class Funciones {
         imprimirCaja(5, "Cargando entorno virtual...");
 
 
+
+
+
         String opcion1;
 
         do {
 
-            System.out.print("¿Quieres consultar tus estadísticas? (si/no): ");
-            String consulta = sc.nextLine().trim().toLowerCase();
-            if (consulta.equals("si")) mostrarStats(energia, seguridad, fuerza);
+
 
             imprimirCaja(5,
                     "EVENTO 1 - ACCESO FORZADO 🔐",
@@ -571,16 +604,26 @@ class Funciones {
                 return finalJuegoHumanos();
             }
 
-        } while (!opcion1.matches("[abcd]"));
+        } while (!opcion1.matches("[abc]"));
 
+        String consulta;
+        do {
+            System.out.print("¿Quieres consultar tus estadísticas? (si/no): ");
+            consulta = sc.nextLine().trim().toLowerCase();
+
+            if (!consulta.equals("si") && !consulta.equals("no")) {
+                imprimirCaja(5, RED + "Entrada inválida. Escribe 'si' o 'no'." + RESET);
+            }
+        } while (!consulta.equals("si") && !consulta.equals("no"));
+
+        if (consulta.equals("si")) {
+            mostrarStats(energia, seguridad, fuerza);
+        }
 
         String opcion2;
 
         do {
-            System.out.print("¿Quieres consultar tus estadísticas? (si/no): ");
-            String consulta = sc.nextLine().trim().toLowerCase();
 
-            if (consulta.equals("si")) mostrarStats(energia, seguridad, fuerza);
 
             imprimirCaja(5,
                     "EVENTO 2 - FIREWALL INTELIGENTE 🔥",
@@ -628,13 +671,23 @@ class Funciones {
 
         } while (!opcion2.matches("[abc]"));
 
+        do {
+            System.out.print("¿Quieres consultar tus estadísticas? (si/no): ");
+            consulta = sc.nextLine().trim().toLowerCase();
+
+            if (!consulta.equals("si") && !consulta.equals("no")) {
+                imprimirCaja(5, RED + "Entrada inválida. Escribe 'si' o 'no'." + RESET);
+            }
+        } while (!consulta.equals("si") && !consulta.equals("no"));
+
+        if (consulta.equals("si")) {
+            mostrarStats(energia, seguridad, fuerza);
+        }
 
         String opcion3;
 
         do {
-            System.out.print("¿Quieres consultar tus estadísticas? (si/no): ");
-            String consulta = sc.nextLine().trim().toLowerCase();
-            if (consulta.equals("si")) mostrarStats(energia, seguridad, fuerza);
+
 
             imprimirCaja(5,
                     "EVENTO 3 - SOBRECARGA DEL NÚCLEO ☢️",
@@ -682,13 +735,23 @@ class Funciones {
 
         } while (!opcion3.matches("[abc]"));
 
+        do {
+            System.out.print("¿Quieres consultar tus estadísticas? (si/no): ");
+            consulta = sc.nextLine().trim().toLowerCase();
+
+            if (!consulta.equals("si") && !consulta.equals("no")) {
+                imprimirCaja(5, RED + "Entrada inválida. Escribe 'si' o 'no'." + RESET);
+            }
+        } while (!consulta.equals("si") && !consulta.equals("no"));
+
+        if (consulta.equals("si")) {
+            mostrarStats(energia, seguridad, fuerza);
+        }
 
         String opcion4;
 
         do {
-            System.out.print("¿Quieres consultar tus estadísticas? (si/no): ");
-            String consulta = sc.nextLine().trim().toLowerCase();
-            if (consulta.equals("si")) mostrarStats(energia, seguridad, fuerza);
+
 
             imprimirCaja(5,
                     "EVENTO 4 - CONFRONTACIÓN FINAL 💻",
@@ -747,29 +810,33 @@ class Funciones {
                 seguridad >= 70 && seguridad <= 120 &&
                 fuerza >= 20 && fuerza <= 45) {
 
+            System.out.println(GREEN + "Has mantenido el equilibrio del sistema y ganas algo de tiempo." + RESET);
             resultadoFinal = finalMemoria();
-            System.out.println("Has mantenido el equilibrio del sistema y ganas algo de tiempo.");
+
 
 
         }else if (energia >= 70 && energia <= 110 &&
                 seguridad >= 30 && seguridad <= 70 &&
                 fuerza >= 50 && fuerza <= 85) {
 
+            System.out.println(GREEN + "Superas a WOPR a base de fuerza bruta." + RESET);
             resultadoFinal = finalJuegoHumanos();
-            System.out.println("Superas a WOPR a base de fuerza bruta.");
+
 
 
         }else if (energia >= 120 && energia <= 170 &&
                 seguridad >= 30 && seguridad <= 50 &&
                 fuerza >= 30 && fuerza <= 60) {
 
+            System.out.println(RED + "Tienes potencia, pero la baja seguridad te traiciona..." + RESET);
             resultadoFinal = finalMemoria();
-            System.out.println("Tienes potencia, pero la baja seguridad te traiciona...");
+
 
 
         } else {
+            System.out.println(RED + "El sistema se reinicia parcialmente..." + RESET);
             resultadoFinal = finalJuegoHumanos();
-            System.out.println("El sistema se reinicia parcialmente...");
+
         }
 
         return resultadoFinal;
@@ -804,7 +871,7 @@ class Funciones {
                 "Todo parece normal, salvo una línea repetida cientos de",
                 "veces:",
                 RED + "[LOG_17: Activación de simulación – Operador conectado]" + RESET,
-                "Resultado: Falla crítica",
+                RED + "Resultado: Falla crítica" + RESET,
                 "",
                 "'OPERADOR', ¿recuerdas haber iniciado esta simulación",
                 "antes?"
@@ -954,7 +1021,7 @@ class Funciones {
             imprimirCaja(5,
                     "██████  Terminal v1.0  ██████",
                     "",
-                    GREEN + "Muy bien 'humano' has identificado los dos falsos humanos correctamente." + RESET
+                    GREEN + "Esta bien 'humano' has identificado los dos falsos humanos correctamente." + RESET
             );
         }
 
@@ -990,7 +1057,16 @@ class Funciones {
             System.out.print("Introduce una letra: ");
             String linea = sc.nextLine().toLowerCase().trim();
 
-            if (linea.isEmpty()) continue;
+            if (linea.length() != 1 || !Character.isLetter(linea.charAt(0))) {
+                imprimirCaja(5,
+                        "██████  Terminal v1.0  ██████",
+                        "",
+                        RED + "Entrada inválida. Introduce SOLO una letra." + RESET,
+                        ""
+                );
+                continue;
+            }
+
             char letra = linea.charAt(0);
 
             boolean acierto = false;
@@ -1139,7 +1215,7 @@ class Funciones {
             String[] partes;
 
             if (entrada.isEmpty()) {
-                imprimirCaja(5, "No se ha introducido ninguna fecha. Intenta de nuevo.");
+                imprimirCaja(5, RED + "No se ha introducido ninguna fecha. Intenta de nuevo." + RESET);
                 continue;
             }
 
@@ -1157,9 +1233,12 @@ class Funciones {
                     partes[2].equals(fechaCorrecta[2])) {
                 primeraFechaCorrecta = true;
                 break;
+            }else{
+                imprimirCaja(5, RED + "Fecha incorrecta. Introduce una fecha válida." + RESET);
+                intentosPrimera--;
             }
 
-            intentosPrimera--;
+
         }
 
         if (!primeraFechaCorrecta) {
@@ -1204,9 +1283,12 @@ class Funciones {
                 segundaFechaCorrecta = true;
                 break;
 
+            }else{
+                imprimirCaja(5, RED + "Fecha incorrecta. Introduce una fecha válida." + RESET);
+                intentosSegunda--;
             }
 
-            intentosSegunda--;
+
         }
 
         if (!segundaFechaCorrecta) {
