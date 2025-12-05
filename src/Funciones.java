@@ -539,7 +539,7 @@ class Funciones {
                     "Ha tomado control de la red y te ha atrapado.",
                     "",
                     "Misión: Escapar antes de que el sistema te elimine.",
-                    "Escribe 'comenzar' para iniciar el protocolo."
+                    "Escribe '" + GREEN + "comenzar" + RESET + "' para iniciar el protocolo."
             );
 
 
