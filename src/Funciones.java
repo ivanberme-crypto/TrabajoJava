@@ -6,6 +6,7 @@ class Funciones {
     public static final String RESET = "\u001B[0m";
     public static final String RED = "\u001B[31m";
     public static final String GREEN = "\u001B[32m";
+    public static final String AMARILLO = "\u001B[33m";
 
 
     public static void imprimirCaja(int delay, String... lineas) {
@@ -489,8 +490,8 @@ class Funciones {
 
         for (int i = 0; i < inventario.length; i++) {
             imprimirCaja(5,
-                    inventario[i][0] + "  " + inventario[i][1],
-                    "   " + inventario[i][2] + "  |  " + inventario[i][3],
+                    AMARILLO + inventario[i][0] + "  " + inventario[i][1] + RESET,
+                    AMARILLO + "   " + inventario[i][2] + "  |  " + inventario[i][3] + RESET,
                     ""
             );
         }
