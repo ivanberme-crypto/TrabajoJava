@@ -216,7 +216,7 @@ class Funciones {
                     RED + "decides abandonar antes del experimento." + RESET,
                     RED + "Consecuencia: Pérdida de credenciales y baja del Seal Team." + RESET
             );
-            imprimirHistoria();
+
         }
 
         System.out.println(" ");
